@@ -1,5 +1,6 @@
 var resp = require('./test/response');
 var extend = Object.assign;
+var link_prefix = 'btc:';
 
 ////////////////////////////////
 //
@@ -17,17 +18,18 @@ Element.prototype.hasAttr = function(name) {
 }
 
 Element.prototype.hasLink = function(path) {
-  return this._links && this._links['btc:' + path];
+  return this._links && this._links[link_prefix + path];
 }
 
 Element.prototype.hasEmbedded = function(name) {
   return this._embedded && this._embedded[name];
 }
 
-Element.prototype.addPath = function(path) {
+// Element.prototype.addPath = function(path) {
   // this._paths.push(path);
-}
+// }
 
+/*
 function LinkedElement(client, link) {
   Element.call(this, client, {});
   this._link = link;
@@ -35,10 +37,21 @@ function LinkedElement(client, link) {
 
 LinkedElement.prototype = Object.create(Element.prototype);
 
-LinkedElement.prototype.get = function(cb) {
+LinkedElement.prototype.get = function() {
   return this._client.request(this._link, cb)
 }
+*/
 
+function LinkedElement(client, link) {
+  this._client = client;
+  this._link = link;
+}
+
+LinkedElement.prototype.get = function(cb) {
+  return this._client.request(this._link, {}, cb)
+}
+
+/*
 function LinkedAction(client, link) {
   // Element.call(this, client, {});
   this._data   = {};
@@ -60,14 +73,15 @@ LinkedAction.prototype.run = function() {
     return this._client.request(this._link, this._params, cb);
   }.bind(this)
 }
+*/
 
 //////////////////////////////////////////////////////
 
-function LinkedCollection(client, link) {
+function LinkedCollection(client, link, singular_link) {
   Element.call(this, client, {});
-  this._link = link;
   this._params = {};
-  // this.addPath(path);  
+  this._link = link;
+  this._singular_link = singular_link;
 }
 
 LinkedCollection.prototype = Object.create(Element.prototype);
@@ -79,7 +93,9 @@ LinkedCollection.prototype.fetch = function(cb) {
 LinkedCollection.prototype.find = function() {
   return function find(id) {
     return new Promise(function(resolve, reject) {
-      this._client.request(this._link, { id: id }, resolve, reject)
+      // if there's a singular version, use that link.
+      var link = this._singular_link || this._link; 
+      this._client.request(link, { id: id }, resolve, reject)
     }.bind(this))
   }.bind(this)
 }
@@ -184,7 +200,7 @@ function EmbeddedItem(client, item) {
 }
 */
 
-function Action(client, link) {
+function LinkedAction(client, link) {
   return function(params) {
     return new Promise(function(resolve, reject) {
       client.request(link, params, resolve, reject);
@@ -220,17 +236,19 @@ let proxyHandler = {
 
     if (target.hasLink(name)) {
       console.log('Found link:', name);
-      var link = target._links['btc:' + name];
+      var link = target._links[link_prefix + name];
 
       if (link.method && link.method.toLowerCase() != 'get')
-        return Action(target._client, link);
+        return new LinkedAction(target._client, link);
       
-      if (name[name.length-1] == 's') // plural, assume collection
-        var target = new LinkedCollection(target._client, link);
-      else
-        var target = new LinkedElement(target.client, link);
+      if (name[name.length-1] != 's') // singular, not a collection
+        return new LinkedElement(target._client, link);
 
-      var proxy = new Proxy(target, proxyHandler);
+      // plural, assume collection
+      // let's see if there's a singular version of this resource
+      var singular = target._links[link_prefix + name.substring(0, name.length-1)];
+      var target   = new LinkedCollection(target._client, link, singular);
+      var proxy    = new Proxy(target, proxyHandler);
       target.proxy = proxy;
       return proxy;
     }
@@ -268,7 +286,9 @@ bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
   console.log(' ---> Processing shop: ' + shop.subdomain);
 
   // linked element
-  // bootic.account.get(function(account) { })
+  shop.theme.get(function(theme) { 
+    console.log('theme', theme)
+  })
 
   // linked collection, find by id. returns promise as it might fail
   bootic.shops.find('1234').then(function(shop) {
@@ -312,3 +332,27 @@ bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
     })
 })
 
+
+function request(link, params, headers) {
+  var options = {}, href = link.href;
+
+  headers['Accept'] = 'application/json';
+  headers['Content-Type'] = 'application/json';
+
+  options.method  = link['method'] || 'get';
+  options.headers = headers;
+
+  if (link['templated']) {
+    var template = uriTemplate(href);
+    href = template.fill(params);
+
+    template.varNames.forEach(function(v) {
+      delete params[v]
+    })
+  }
+
+  if (Object.keys(params).length > 0)
+    options.body = JSON.stringify(params)
+
+  return fetch(href, options);
+}
