@@ -237,6 +237,28 @@ var bootic = new Client();
 bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
   console.log(' ---> Processing shop: ' + shop.subdomain);
 
+  // linked element
+  bootic.account.get(function(account) {
+
+  })
+
+  // linked collection, find by id. returns promise as it might fail
+  bootic.shops.find('1234').then(function(shop) {
+
+  })
+
+  // linked collection
+  shop.orders.find('abc123').then(function(o) { ... })
+
+  shop
+    .delete_order
+    .with({ id: 123 })
+    .then(function(result) {
+    .catch(function(err) {
+      // ...
+    })
+  })
+
   // a linked action
   shop.create_order.with({ foo: 'bar' }).run(function(result) {
     console.log(result);

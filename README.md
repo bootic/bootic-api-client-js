@@ -56,12 +56,40 @@
 
 List products in shop:
 
-    var myShop = client.root().then(function(root) { return root.shops[0] })
-    var myProducts = myShop.then(function(shop) { return client.run(shop._links["btc:products"]) })
+    Old version:
 
-    myProducts.then(function(prods) {
+    client.root()
+    .then(function(root) { 
+      return root.shops[0] 
+    })
+    .then(function(shop) { 
+      return client.run(shop._links["btc:products"]) 
+    })
+    .then(function(prods) {
       console.log('products', prods)
     })
+
+    New version:
+
+    root.shops.first(function(shop) {
+      shop.products.all(function(products) {
+        console.log(products)
+      })
+    })
+
+
+Download all images for my products:
+
+    root.products.forEach(function(product) {
+      product.images.first(function(
+
+      ))
+
+      product.images.forEach(function() {
+
+      })
+    })
+
 
 Hide products in collection 'Offers':
 

@@ -328,16 +328,4 @@ root.subscription.get(function(err, sub) {
 
 })
 
-# Collection
-
-## [Collection].where(query)
-
---> Requests a link with params. Returns Collection. Example:
-
-    root.shops.where(subdomain: 'foo')...
-
-## [Collection].forEach(cb)
-
- --> Iterates over each of a collection's items. 
-
-## [Collection].each(cb) 
+de
