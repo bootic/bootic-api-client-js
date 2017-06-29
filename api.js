@@ -76,9 +76,24 @@ LinkedCollection.prototype.fetch = function(cb) {
   return this._client.request(this._link, this._params, cb)
 }
 
+LinkedCollection.prototype.find = function() {
+  return function find(id) {
+    return new Promise(function(resolve, reject) {
+      this._client.request(this._link, { id: id }, resolve, reject)
+    }.bind(this))
+  }.bind(this)
+}
+
 LinkedCollection.prototype.where = function() {
   return function where(params) {
     extend(this._params, params);
+    return this.proxy;
+  }.bind(this);
+}
+
+LinkedCollection.prototype.sort = function() {
+  return function sort(by) {
+    this._params['sort'] = by;
     return this.proxy;
   }.bind(this);
 }
@@ -130,8 +145,21 @@ EmbeddedCollection.prototype.fetch = function(cb) {
   return cb(this._items);
 }
 
+EmbeddedCollection.prototype.find = function(cb) {
+  return function find(id) {
+    return new Promise(function(resolve, reject) {
+      var found = this._items.filter(function(el) {
+        return el.id == id;
+      })[0];
+
+      return found ? resolve(found) : reject(new Error('Not found'))
+    }.bind(this))
+  }.bind(this)
+}
+
 EmbeddedCollection.prototype.where = function() {
   return function where(params) {
+
     var subset = this._items.filter(function(el) {
       for (var key in params) {
         if (el[key] && el[key] == params[key])
@@ -139,7 +167,7 @@ EmbeddedCollection.prototype.where = function() {
       }
     });
 
-    this._original_items = this._items;
+    if (!this._original_items) this._original_items = this._items;
     this._items = subset;
     return this.proxy;
 
@@ -155,6 +183,14 @@ function EmbeddedItem(client, item) {
   this._item   = item;
 }
 */
+
+function Action(client, link) {
+  return function(params) {
+    return new Promise(function(resolve, reject) {
+      client.request(link, params, resolve, reject);
+    })
+  }
+}
 
 let proxyHandler = {
   get: function(target, name) {
@@ -187,8 +223,9 @@ let proxyHandler = {
       var link = target._links['btc:' + name];
 
       if (link.method && link.method.toLowerCase() != 'get')
-        var target = new LinkedAction(target._client, link);
-      else if (name[name.length-1] == 's') // plural, assume collection
+        return Action(target._client, link);
+      
+      if (name[name.length-1] == 's') // plural, assume collection
         var target = new LinkedCollection(target._client, link);
       else
         var target = new LinkedElement(target.client, link);
@@ -206,16 +243,8 @@ let proxyHandler = {
     // console.log('Method not found, adding path!', name);
     // target.addPath(name);
     // return new Proxy(target, proxyHandler);
-    throw new Error('Not found: ' + path);
+    throw new Error('Not found: ' + name);
   }
-}
-
-function Finder(client, data) {
-  this._data   = data;
-
-  this._client = client;
-  this._paths  = ['root'];
-  this._cache  = {};
 }
 
 function Client(opts) {
@@ -226,47 +255,48 @@ function Client(opts) {
   // this.root = new Element(resp);
 }
 
-Client.prototype.request = function(link, params, cb) {
-  cb([ 'one', 'two'])
+Client.prototype.request = function(link, params, success, error) {
+  success([ 'one', 'two'])
 }
 
 // module.exports = Client;
-var bootic = new Client();
+var c = new Client();
+var bootic = c.root;
 
 // bootic is the root element. shops is an embedded collection
 bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
   console.log(' ---> Processing shop: ' + shop.subdomain);
 
   // linked element
-  bootic.account.get(function(account) {
-
-  })
+  // bootic.account.get(function(account) { })
 
   // linked collection, find by id. returns promise as it might fail
   bootic.shops.find('1234').then(function(shop) {
-
+    // ...
+  }).catch(function(err) { 
+    // console.log(err) 
   })
 
   // linked collection
-  shop.orders.find('abc123').then(function(o) { ... })
-
-  shop
-    .delete_order
-    .with({ id: 123 })
-    .then(function(result) {
-    .catch(function(err) {
-      // ...
-    })
+  shop.orders.find('abc123').then(function(o) { 
+    // ... 
+  }).catch(function(err) { 
+    // console.log(err) 
   })
 
+  shop
+    .create_product({ name: 'Some product' })
+    .then(function(result) { })
+    .catch(function(err) { })
+
   // a linked action
-  shop.create_order.with({ foo: 'bar' }).run(function(result) {
+  shop.create_order({ foo: 'bar' }).then(function(result) {
     console.log(result);
   })
 
   // a linked collection. same API as embedded collections
   shop.products.first(function(product) {
-    console.log(product.model)    
+    // product.make_visible().then(function(result) { })
   })
 
   // collections respond to .each, .map, .first, .last, and .where
@@ -279,6 +309,6 @@ bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
     .sort('price.desc')
     .last(function(product) {
       // ...
-  })
+    })
 })
 
