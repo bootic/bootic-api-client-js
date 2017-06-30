@@ -1,4 +1,12 @@
-var resp = require('./test/response');
+// var resp = require('./test/response');
+
+var uriTemplate = require('uri-templates');
+// var urlTemplate = require('url-template');
+
+if (typeof fetch == 'undefined') {
+  var fetch = require('node-fetch-polyfill');
+}
+
 var extend = Object.assign;
 var link_prefix = 'btc:';
 
@@ -87,7 +95,52 @@ function LinkedCollection(client, link, singular_link) {
 LinkedCollection.prototype = Object.create(Element.prototype);
 
 LinkedCollection.prototype.fetch = function(cb) {
-  return this._client.request(this._link, this._params, cb)
+  if (this.result)
+    return cb(this.result);
+
+  return this._client.request(this._link, this._params, function(result) {
+    cb(this.result = result);
+  }.bind(this))
+
+}
+
+LinkedCollection.prototype.fetchItems = function(cb) {
+  if (this.items)
+    return cb(this.items);
+
+  return this.fetch(function(result) {
+    this.items = result._embedded.items.map(function(i) {
+      return new Proxy(new Element(client, i), proxyHandler)
+    });
+
+    cb(this.items)
+  }.bind(this))
+}
+
+LinkedCollection.prototype.callAction = function(name) {
+  var self = this;
+
+  return function callAction(params) {
+    return new Promise(function(resolve, reject) {
+      self.fetch(function(result) {
+
+        if (!result._actions[name])
+          return reject(new Error('Action not found: ' + name + ', available are', Object.keys(result._actions)));
+
+        var link = result._actions[name];
+        return self._client.request(link, params, function(result) {
+
+          if (result._embedded.items) {
+            var obj = new Proxy(new EmbeddedCollection(self._client, result._embedded.items), proxyHandler)
+          } else {
+            var obj = new Proxy(new Element(self._client, result), proxyHandler)
+          }
+
+          resolve(obj);
+        }, reject);
+      })
+    })
+  }
 }
 
 LinkedCollection.prototype.find = function() {
@@ -116,8 +169,7 @@ LinkedCollection.prototype.sort = function() {
 
 LinkedCollection.prototype.each = function() {
   return function each(cb) {
-    return this.fetch(function(items) {
-      console.log('xxx')
+    return this.fetchItems(function(items) {
       items.forEach(function(i) { cb(i) });
     })
   }.bind(this)
@@ -125,7 +177,7 @@ LinkedCollection.prototype.each = function() {
 
 LinkedCollection.prototype.all = function() {
   return function all(cb) {
-    return this.fetch(function(items) {
+    return this.fetchItems(function(items) {
       cb(items);
     })
   }.bind(this)
@@ -133,7 +185,7 @@ LinkedCollection.prototype.all = function() {
 
 LinkedCollection.prototype.first = function() {
   return function first(cb) {
-    return this.fetch(function(items) {
+    return this.fetchItems(function(items) {
       cb(items[0]);
     })
   }.bind(this)
@@ -141,7 +193,7 @@ LinkedCollection.prototype.first = function() {
 
 LinkedCollection.prototype.last = function() {
   return function last(cb) {
-    return this.fetch(function(items) {
+    return this.fetchItems(function(items) {
       cb(items[items.length-1]);
     })
   }.bind(this)  
@@ -157,7 +209,7 @@ function EmbeddedCollection(client, items) {
 
 EmbeddedCollection.prototype = Object.create(LinkedCollection.prototype);
 
-EmbeddedCollection.prototype.fetch = function(cb) {
+EmbeddedCollection.prototype.fetchItems = function(cb) {
   return cb(this._items);
 }
 
@@ -193,13 +245,6 @@ EmbeddedCollection.prototype.where = function() {
   }.bind(this)
 }
 
-/*
-function EmbeddedItem(client, item) {
-  this._client = client;
-  this._item   = item;
-}
-*/
-
 function LinkedAction(client, link) {
   return function(params) {
     return new Promise(function(resolve, reject) {
@@ -210,7 +255,7 @@ function LinkedAction(client, link) {
 
 let proxyHandler = {
   get: function(target, name) {
-    if (name.toString().match(/inspect|valueOf|toStringTag/)) {
+    if (name.toString().match(/inspect|then|valueOf|toStringTag/)) {
       return;
     }
 
@@ -218,7 +263,6 @@ let proxyHandler = {
       console.log('Found attribute:', name);
       return target._data[name];
     }
-
 
     if (target.hasEmbedded(name)) { // found embedded
       console.log('Found embedded:', name);
@@ -258,93 +302,127 @@ let proxyHandler = {
       return target[name].call(target);
     }
 
-    // console.log('Method not found, adding path!', name);
+    console.log('Method not found. Following path...', name);
+    return target.callAction(name);
+
     // target.addPath(name);
     // return new Proxy(target, proxyHandler);
-    throw new Error('Not found: ' + name);
+    // throw new Error('Not found: ' + name);
   }
 }
 
+/*
+
+let rootHandler = {
+  get: function(target, name) {
+    if (name.toString().match(/inspect|valueOf|toStringTag/)) {
+      return;
+    }
+
+    target.addPath(name);
+  }
+}
+
+
+var RootElement = {
+  paths: ['root']
+};
+
+RootElement.addPath = function(path) {
+  this.paths.push(path);
+}
+
+*/
+
+var ROOT_URL = 'https://api.bootic.net/v1';
+
 function Client(opts) {
-  // var target = new Finder(this, resp);
-  var target = new Element(this, resp);
+  this.rootUrl    = opts.rootUrl || ROOT_URL;
+  this.authorized = false;
 
-  this.root = new Proxy(target, proxyHandler);
-  // this.root = new Element(resp);
+  this.requestHeaders = {
+    'Authorization': 'Bearer ' + opts.accessToken
+  }
+
+  this.onUnauthorized = function() {
+    return new Promise(function(resolve, reject) {
+      // fn(this, resolve, reject)
+      resolve(this)
+    }.bind(this))
+  }
+
+  this.onForbidden = this.onUnauthorized;
 }
 
-Client.prototype.request = function(link, params, success, error) {
-  success([ 'one', 'two'])
+Client.prototype.authorize = function() {
+  var client = this;
+  return new Promise(function(resolve, reject) {
+    var link = { href: client.rootUrl };
+    client.request(link, {}, function(data) {
+      if (~data._class.indexOf('errors'))
+        return reject(new Error(data.message))
+
+      var target  = new Element(client, data);
+      client.root = new Proxy(target, proxyHandler);
+      resolve(client.root);
+
+    }, reject);
+  })
 }
 
-// module.exports = Client;
-var c = new Client();
-var bootic = c.root;
+Client.prototype.request = function(link, params, onSuccess, onError) {
+  var client = this;
+  console.log(link.method || 'GET', link.href.split('{')[0])
 
-// bootic is the root element. shops is an embedded collection
-bootic.shops.where({ subdomain: 'www' }).first(function(shop) {
-  console.log(' ---> Processing shop: ' + shop.subdomain);
+  sendRequest(link.method, link.href, params, client.requestHeaders)
+    .then(handleResponse)
+    .catch(onError);
 
-  // linked element
-  shop.theme.get(function(theme) { 
-    console.log('theme', theme)
-  })
+  function handleResponse(resp) {
+    var code = resp.status;
+    console.log(code.toString(), link.href.split('{')[0])
 
-  // linked collection, find by id. returns promise as it might fail
-  bootic.shops.find('1234').then(function(shop) {
-    // ...
-  }).catch(function(err) { 
-    // console.log(err) 
-  })
+    switch(code) {
+      case 401:
+        if (client.authorized)
+          return done(code, resp.json())
 
-  // linked collection
-  shop.orders.find('abc123').then(function(o) { 
-    // ... 
-  }).catch(function(err) { 
-    // console.log(err) 
-  })
+        return client.onUnauthorized().then(function() {
+          console.log('Unauthorized. Resending request...')
+          client.request(link, params, success, error);
+        })
 
-  shop
-    .create_product({ name: 'Some product' })
-    .then(function(result) { })
-    .catch(function(err) { })
+      case 403:
+        return client.onForbidden().then(function() {
+          done(code, resp.json());
+        })
 
-  // a linked action
-  shop.create_order({ foo: 'bar' }).then(function(result) {
-    console.log(result);
-  })
+      default:
+        client.authorized = true;
+        return done(code, resp.json());
+    }
+  }
 
-  // a linked collection. same API as embedded collections
-  shop.products.first(function(product) {
-    // product.make_visible().then(function(result) { })
-  })
-
-  // collections respond to .each, .map, .first, .last, and .where
-  shop.products.each(function(p) { console.log(p.price) })
-
-  // a linked collection (products), filtered and sorted
-  shop
-    .products
-    .where({ price_lte: 30000 })
-    .sort('price.desc')
-    .last(function(product) {
-      // ...
+  function done(code, parser) {
+    parser.then(function(data) {
+      onSuccess(data);
     })
-})
+  }
+}
 
+function sendRequest(method, url, params, headers) {
 
-function request(link, params, headers) {
-  var options = {}, href = link.href;
+  var options = {
+    method  : method || 'get',
+    headers : headers
+  }
 
-  headers['Accept'] = 'application/json';
-  headers['Content-Type'] = 'application/json';
+  options.headers['Accept'] = 'application/json';
+  options.headers['Content-Type'] = 'application/json';
 
-  options.method  = link['method'] || 'get';
-  options.headers = headers;
-
-  if (link['templated']) {
-    var template = uriTemplate(href);
-    href = template.fill(params);
+  if (~url.indexOf('{')) { // templated
+    var template = uriTemplate(url);
+    url = template.fill(params);
 
     template.varNames.forEach(function(v) {
       delete params[v]
@@ -354,5 +432,7 @@ function request(link, params, headers) {
   if (Object.keys(params).length > 0)
     options.body = JSON.stringify(params)
 
-  return fetch(href, options);
+  return fetch(url, options);
 }
+
+module.exports = Client;
