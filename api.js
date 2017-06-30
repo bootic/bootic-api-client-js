@@ -17,6 +17,16 @@ var debugging = false;
 // var debugging = true;
 var debug = debugging ? console.log : function() { }
 
+function explain(el) {
+  return function explain(opts) {
+    console.log('Class: ' + el.constructor.name + ', ' + (el.loaded ? 'loaded' : 'not loaded'));
+    console.log(' -- Data:', el._data);
+    console.log(' -- Actions:', el._actions);
+    console.log(' -- Links:', el._links);
+    console.log(' -- Embedded:', el._embedded);
+  };
+}
+
 ////////////////////////////////
 
 function Element(client, data) {
@@ -26,6 +36,10 @@ function Element(client, data) {
   this._embedded = data._embedded;
   this.loaded = true;
   // this._paths    = [];
+}
+
+Element.prototype.explain = function() {
+  return explain(this);
 }
 
 Element.prototype.hasAttr = function(name) {
@@ -237,7 +251,7 @@ VirtualElement.prototype.get = function() {
       return cb(this.result);
 
     var self = this;
-    this._pendingFn(function(parentData, client) {
+    return this._pendingFn(function(parentData, client) {
       self._client = client;
 
       var link = parentData._links[link_prefix + self._path];
@@ -248,31 +262,41 @@ VirtualElement.prototype.get = function() {
         self.result = new Proxy(new Element(client, result), proxyHandler)
         cb(self.result);
       }.bind(this))
+
     })
   }.bind(this)
 }
 
 function VirtualCollection(path, pendingFn) {
   // this._client = client;
-  this._path = path;
-  this._data = {};
+  this._path   = path;
+  this._data   = {};
+  this._params = {};
   this._pendingFn = pendingFn;
   // Element.call(this, client, {});
 }
 
 VirtualCollection.prototype = Object.create(LinkedCollection.prototype);
-VirtualCollection.prototype.fetch = VirtualElement.prototype.get;
+VirtualCollection.prototype.fetch = function(cb) {
+  var fn = VirtualElement.prototype.get.call(this);
+  return fn(cb);
+};
+
 
 var functionProxy = {
   get: function(target, name) {
-    console.log('function proxy being requested', name)
+    if (name == 'explain')
+      return explain(target);
 
     if (name[name.length-1] == 's')
       var obj = new VirtualCollection(name, target);
     else
       var obj = new VirtualElement(name, target);
 
-    return new Proxy(obj, proxyHandler);
+    // console.log('returning proxy for', name);
+    var proxy = new Proxy(obj, proxyHandler);
+    obj.proxy = proxy;
+    return proxy;
   }
 }
 
@@ -323,7 +347,7 @@ function LinkedAction(client, link) {
 
 let proxyHandler = {
   get: function(target, name) {
-    if (name.toString().match(/inspect|then|valueOf|toStringTag/)) {
+    if (name.constructor.name == 'Symbol' || name.toString().match(/inspect|then|valueOf|toStringTag/)) {
       return;
     }
 
@@ -423,6 +447,7 @@ Client.prototype.request = function(link, params, onSuccess, onError) {
   var client = this;
 
   var start = Date.now();
+  debug(link);
   console.log((link.method || 'GET').blue, link.href.split('{')[0].grey)
 
   sendRequest(link.method, link.href, params, client.requestHeaders)
@@ -494,7 +519,7 @@ function sendRequest(method, url, params, headers) {
   if (Object.keys(params).length > 0)
     options.body = JSON.stringify(params)
 
-  // console.log(url, options)
+  console.log(url, JSON.stringify(options).yellow)
   return fetch(url, options);
 }
 

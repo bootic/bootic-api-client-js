@@ -1,7 +1,7 @@
 var BooticAPI = require('./api');
 
 var client = new BooticAPI({ 
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODAxNDEyLCJleHAiOjE0OTg4MDUwMTIsInR0bCI6MzYwMCwianRpIjoiNTkwYyJ9.TjlAOE-oZd1XaE-r5dvZqzbwFeHXFzkjiyxWHZsRrEGkaUZa2grY6LokUDWxaWJQHA5mfV7aFYSRPrzGQcvXRk9ac0oPKQsAVluOYGXm6wP7tsNF3CaZsEGA5lRn2Qy8zTm3NhCz_F39qZitdbQ1k7X9TlhLlxk6DzXK7pG6DV0'
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODUzMTM1LCJleHAiOjE0OTg4NTY3MzUsInR0bCI6MzYwMCwianRpIjoiNDQ3MSJ9.CCKDBvOiPNRduQFaPxI6fr7YW6pX6xuFxERTH2E-B3_nEk39s3J3rWyFS3jD4iHNpqGVl4MlO3qQlNVTa28gA_A_2ixcKJHCLGD8Kyn2Ubcq_nZvbuwQ8qB5lpg4-4wzkCtyhfbZlw3wdnlRP5T08erlFmEEdFKB9MYn_cXYEjI'
 })
 
 process.on('unhandledRejection', (reason, p) => {
@@ -37,11 +37,37 @@ client
     // searchOrders(root);
     // earchOrdersDirect(root);
 
+//     root.shops.first(function(shop) {
+//       shop.inspect()
+//     })
+
+/*
+    root.shops.where({ subdomain: 'romano' }).first(function(shop) {
+      shop.products.where({ tags: 'Cartera' }).sort('price.asc').all(function(res) {
+        console.log(res)          
+      })
+    })
+*/
+
+  root.shops.where({ subdomain: 'romano' }).first.products.first(function(o) {
+    console.log(o.title)
+  })
+
+/*
+    root.products.where({ shop_subdomains: 'romano', tags: 'Cartera' }).all(function(set) {
+      console.log(set)
+    })
+*/
+
+
+/*
     root.shops.first.theme.get(function(theme) {
       theme.templates.each(function(t) {
         console.log(t)
       })
     })
+*/
+
 
 /*
     root.shops.last(function(s) {
