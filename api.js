@@ -18,6 +18,7 @@ function Element(client, data) {
   this._data     = data;
   this._links    = data._links;
   this._embedded = data._embedded;
+  this.loaded = true;
   // this._paths    = [];
 }
 
@@ -53,10 +54,17 @@ LinkedElement.prototype.get = function() {
 function LinkedElement(client, link) {
   this._client = client;
   this._link = link;
+  this.loaded = false;
 }
 
 LinkedElement.prototype.get = function(cb) {
-  return this._client.request(this._link, {}, cb)
+  if (this._data)
+    return cb(this._data);
+
+  return this._client.request(this._link, {}, function(data) {
+    this.loaded = true;
+    cb(this._data = data);
+  }.bind(this))
 }
 
 /*
@@ -87,6 +95,8 @@ LinkedAction.prototype.run = function() {
 
 function LinkedCollection(client, link, singular_link) {
   Element.call(this, client, {});
+
+  this.loaded = false;
   this._params = {};
   this._link = link;
   this._singular_link = singular_link;
@@ -99,9 +109,9 @@ LinkedCollection.prototype.fetch = function(cb) {
     return cb(this.result);
 
   return this._client.request(this._link, this._params, function(result) {
+    this.loaded = true;
     cb(this.result = result);
   }.bind(this))
-
 }
 
 LinkedCollection.prototype.fetchItems = function(cb) {
@@ -183,12 +193,15 @@ LinkedCollection.prototype.all = function() {
   }.bind(this)
 }
 
+
 LinkedCollection.prototype.first = function() {
-  return function first(cb) {
+  var fn = function first(cb) {
     return this.fetchItems(function(items) {
       cb(items[0]);
     })
-  }.bind(this)
+  }.bind(this);
+
+  return new Proxy({ fn: fn, client: this._client }, functionProxy);
 }
 
 LinkedCollection.prototype.last = function() {
@@ -197,6 +210,40 @@ LinkedCollection.prototype.last = function() {
       cb(items[items.length-1]);
     })
   }.bind(this)  
+}
+
+function VirtualCollection(client, path, pendingFn) {
+  this._client = client;
+  this._path = path;
+  this._data = {};
+  this._pendingFn = pendingFn;
+  // Element.call(this, client, {});
+}
+
+VirtualCollection.prototype = Object.create(LinkedCollection.prototype);
+
+VirtualCollection.prototype.fetch = function(cb) {
+  if (this.result)
+    return cb(this.result);
+
+  var self = this;
+  this._pendingFn(function(parentData) {
+    var link = parentData._links[link_prefix + self._path];
+    if (!link) throw new Error('Invalid path: ' + self._path);
+
+    return self._client.request(link, {}, function(result) {
+      self.loaded = true;
+      cb(self.result = result);
+    }.bind(this))
+  })
+}
+
+var functionProxy = {
+  get: function(target, name) {
+    var obj = new VirtualCollection(target.client, name, target.fn);
+    console.log(obj)
+    return new Proxy(obj, proxyHandler);
+  }
 }
 
 function EmbeddedCollection(client, items) {
@@ -302,12 +349,15 @@ let proxyHandler = {
       return target[name].call(target);
     }
 
-    console.log('Method not found. Following path...', name);
-    return target.callAction(name);
+    if (!target.loaded) {
+      console.log('Method not found. Following path...', name);
+      return target.callAction(name);
+    } else {
+      throw new Error('Not found: ' + name);
+    }
 
     // target.addPath(name);
     // return new Proxy(target, proxyHandler);
-    // throw new Error('Not found: ' + name);
   }
 }
 
@@ -322,7 +372,6 @@ let rootHandler = {
     target.addPath(name);
   }
 }
-
 
 var RootElement = {
   paths: ['root']
@@ -359,7 +408,7 @@ Client.prototype.authorize = function() {
   return new Promise(function(resolve, reject) {
     var link = { href: client.rootUrl };
     client.request(link, {}, function(data) {
-      if (~data._class.indexOf('errors'))
+      if (!data._class || ~data._class.indexOf('errors'))
         return reject(new Error(data.message))
 
       var target  = new Element(client, data);
@@ -384,13 +433,13 @@ Client.prototype.request = function(link, params, onSuccess, onError) {
 
     switch(code) {
       case 401:
-        if (client.authorized)
+        // if (client.authorized)
           return done(code, resp.json())
 
-        return client.onUnauthorized().then(function() {
-          console.log('Unauthorized. Resending request...')
-          client.request(link, params, success, error);
-        })
+        // return client.onUnauthorized().then(function() {
+        //   console.log('Unauthorized. Resending request...')
+        //   client.request(link, params, onSuccess, onError);
+        // })
 
       case 403:
         return client.onForbidden().then(function() {
