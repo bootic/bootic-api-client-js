@@ -3,15 +3,21 @@
 var uriTemplate = require('uri-templates');
 // var urlTemplate = require('url-template');
 
+var colour = require('colour');
+
 if (typeof fetch == 'undefined') {
   var fetch = require('node-fetch-polyfill');
+  require('http').globalAgent.keepAlive = true;
 }
 
 var extend = Object.assign;
 var link_prefix = 'btc:';
 
+var debugging = false;
+// var debugging = true;
+var debug = debugging ? console.log : function() { }
+
 ////////////////////////////////
-//
 
 function Element(client, data) {
   this._client   = client;
@@ -118,6 +124,7 @@ LinkedCollection.prototype.fetchItems = function(cb) {
   if (this.items)
     return cb(this.items);
 
+  var client = this._client;
   return this.fetch(function(result) {
     this.items = result._embedded.items.map(function(i) {
       return new Proxy(new Element(client, i), proxyHandler)
@@ -193,27 +200,29 @@ LinkedCollection.prototype.all = function() {
   }.bind(this)
 }
 
-
 LinkedCollection.prototype.first = function() {
   var fn = function first(cb) {
+    var self = this;
     return this.fetchItems(function(items) {
-      cb(items[0]);
+      cb(items[0], self._client);
     })
   }.bind(this);
 
-  return new Proxy({ fn: fn, client: this._client }, functionProxy);
+  return new Proxy(fn, functionProxy);
 }
 
 LinkedCollection.prototype.last = function() {
-  return function last(cb) {
+  var fn = function last(cb) {
     return this.fetchItems(function(items) {
       cb(items[items.length-1]);
     })
-  }.bind(this)  
+  }.bind(this);
+
+  return new Proxy(fn, functionProxy);
 }
 
-function VirtualCollection(client, path, pendingFn) {
-  this._client = client;
+function VirtualCollection(path, pendingFn) {
+  // this._client = client;
   this._path = path;
   this._data = {};
   this._pendingFn = pendingFn;
@@ -227,7 +236,9 @@ VirtualCollection.prototype.fetch = function(cb) {
     return cb(this.result);
 
   var self = this;
-  this._pendingFn(function(parentData) {
+  this._pendingFn(function(parentData, client) {
+    self._client = client;
+
     var link = parentData._links[link_prefix + self._path];
     if (!link) throw new Error('Invalid path: ' + self._path);
 
@@ -240,8 +251,7 @@ VirtualCollection.prototype.fetch = function(cb) {
 
 var functionProxy = {
   get: function(target, name) {
-    var obj = new VirtualCollection(target.client, name, target.fn);
-    console.log(obj)
+    var obj = new VirtualCollection(name, target);
     return new Proxy(obj, proxyHandler);
   }
 }
@@ -307,12 +317,34 @@ let proxyHandler = {
     }
 
     if (target.hasAttr(name)) { 
-      console.log('Found attribute:', name);
+      debug('Found attribute:', name);
       return target._data[name];
     }
 
+
+    if (target.hasLink(name) || target.hasLink('all_' + name)) {
+
+      var link = target._links[link_prefix + 'all_' + name] || target._links[link_prefix + name];
+      debug('Found link:', name, link);
+
+      if (link.method && link.method.toLowerCase() != 'get')
+        return new LinkedAction(target._client, link);
+      
+      if (name[name.length-1] != 's') // singular, not a collection
+        return new LinkedElement(target._client, link);
+
+      // plural, assume collection
+      // let's see if there's a singular version of this resource
+      var singular = target._links[link_prefix + name.substring(0, name.length-1)];
+      var target   = new LinkedCollection(target._client, link, singular);
+
+      var proxy    = new Proxy(target, proxyHandler);
+      target.proxy = proxy;
+      return proxy;
+    }
+
     if (target.hasEmbedded(name)) { // found embedded
-      console.log('Found embedded:', name);
+      debug('Found embedded:', name);
 
       if (name[name.length-1] == 's') { // plural, assume collection
         var target = new EmbeddedCollection(target._client, target._embedded[name]);
@@ -325,32 +357,14 @@ let proxyHandler = {
       return proxy;
     }
 
-    if (target.hasLink(name)) {
-      console.log('Found link:', name);
-      var link = target._links[link_prefix + name];
-
-      if (link.method && link.method.toLowerCase() != 'get')
-        return new LinkedAction(target._client, link);
-      
-      if (name[name.length-1] != 's') // singular, not a collection
-        return new LinkedElement(target._client, link);
-
-      // plural, assume collection
-      // let's see if there's a singular version of this resource
-      var singular = target._links[link_prefix + name.substring(0, name.length-1)];
-      var target   = new LinkedCollection(target._client, link, singular);
-      var proxy    = new Proxy(target, proxyHandler);
-      target.proxy = proxy;
-      return proxy;
-    }
 
     if (typeof target[name] == 'function') { // method exists
-      console.log('Found method:', name);
+      debug('Found method:', name);
       return target[name].call(target);
     }
 
     if (!target.loaded) {
-      console.log('Method not found. Following path...', name);
+      debug('Method not found. Following path...', name);
       return target.callAction(name);
     } else {
       throw new Error('Not found: ' + name);
@@ -421,15 +435,18 @@ Client.prototype.authorize = function() {
 
 Client.prototype.request = function(link, params, onSuccess, onError) {
   var client = this;
-  console.log(link.method || 'GET', link.href.split('{')[0])
+  console.log((link.method || 'GET').blue, link.href.split('{')[0].grey)
 
   sendRequest(link.method, link.href, params, client.requestHeaders)
     .then(handleResponse)
-    .catch(onError);
+    .catch(function(err) {
+      console.log(err);
+      onError && onError(err);
+    });
 
   function handleResponse(resp) {
     var code = resp.status;
-    console.log(code.toString(), link.href.split('{')[0])
+    console.log(code.toString().cyan, link.href.split('{')[0].grey)
 
     switch(code) {
       case 401:
@@ -444,7 +461,7 @@ Client.prototype.request = function(link, params, onSuccess, onError) {
       case 403:
         return client.onForbidden().then(function() {
           done(code, resp.json());
-        })
+        }).catch(onError)
 
       default:
         client.authorized = true;
@@ -455,7 +472,7 @@ Client.prototype.request = function(link, params, onSuccess, onError) {
   function done(code, parser) {
     parser.then(function(data) {
       onSuccess(data);
-    })
+    }).catch(onError)
   }
 }
 

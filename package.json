@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colour": "^0.7.1",
     "node-fetch-polyfill": "^2.0.6",
     "uri-templates": "^0.2.0",
     "url-template": "^2.0.8"

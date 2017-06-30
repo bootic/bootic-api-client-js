@@ -1,33 +1,26 @@
 var BooticAPI = require('./api');
 
 var client = new BooticAPI({ 
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4NzkzNTc4LCJleHAiOjE0OTg3OTcxNzgsInR0bCI6MzYwMCwianRpIjoiM2QzZSJ9.eScqX522dt8bn0b8REOxrrPRCAvSOG8d_za9sdWc_oLAvA1fFuW0KB47mkrXbQHwuB_XylZpxs1_w0jwKw0cxgPt3r3ukZSmBLPh-J5jAyj1EbD5hqWxf-gKpOa-eUuA2-G0LtQwak98G50srM-0RTEwq5BJNfUVAfwV76Rr-LY'
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4Nzk3ODA0LCJleHAiOjE0OTg4MDE0MDQsInR0bCI6MzYwMCwianRpIjoiNWJkMSJ9.PV4yZbbatYvXoThGMdoGTPf_JUmZPv7hhLQVIS0JAYY5QITr6JrzeJVp91ZbJ1qUWHoJX0r4tTpkrQoO-h-N4FLKNL65i5e1BHWFc_GrWZWhj0eFdWEetHq-7GZGfT6Q9sxaE6Va9_TZswPRGlLe8YKeJtLbIC75nJaTnUJBYO4'
 })
+
+process.on('unhandledRejection', (reason, p) => {
+   console.log('Unhandled Rejection at:', p, 'reason:', reason);
+   // application specific logging, throwing an error, or other logic here
+});
 
 client
   .authorize()
   .then(function(root) {
 
+    root.shops.first(function(s) {
+      console.log('Shop:', s.name)
+    })
+
     root.shops.first.orders.last(function(o) {
       console.log(o)
     })
 
-/*
-    root.shops.where({ subdomain: 'www' }).first(function(shop) {
-
-      shop.orders.where({ code: '12345' }).each(function(o) {
-        console.log('order', o);
-      })
-
-      shop.orders.search({ code: '12345' }).then(function(result) {
-        result.each(function(res) {
-          console.log('xx!!')
-        })
-      }).catch(function(err) {
-        console.log(err)
-      })
-    })
-*/
   })
   .catch(function(err) {
     console.log('!err', err)
