@@ -1,7 +1,7 @@
 var BooticAPI = require('./api');
 
 var client = new BooticAPI({ 
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODUzMTM1LCJleHAiOjE0OTg4NTY3MzUsInR0bCI6MzYwMCwianRpIjoiNDQ3MSJ9.CCKDBvOiPNRduQFaPxI6fr7YW6pX6xuFxERTH2E-B3_nEk39s3J3rWyFS3jD4iHNpqGVl4MlO3qQlNVTa28gA_A_2ixcKJHCLGD8Kyn2Ubcq_nZvbuwQ8qB5lpg4-4wzkCtyhfbZlw3wdnlRP5T08erlFmEEdFKB9MYn_cXYEjI'
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODU2NzYxLCJleHAiOjE0OTg4NjAzNjEsInR0bCI6MzYwMCwianRpIjoiZTk0MiJ9.EM-rrxhaI9Eh3crmtiplYH2XlFd0m-jMbINVr-meQn4p93uCFcOKFbqXWXlgfxMWGyOhW3v2faDFlotAVqq6QvsG4nfUBadnLUiz5H2jSPVUnwUXIRKqHtJo5gtJUyW0wwNVaE6uu_c4JschD_p9S8Mk49MmTogQBzOvxn4mX6U'
 })
 
 process.on('unhandledRejection', (reason, p) => {
@@ -49,8 +49,11 @@ client
     })
 */
 
-  root.shops.where({ subdomain: 'romano' }).first.products.first(function(o) {
-    console.log(o.title)
+  root.shops.where({ subdomain: 'romano' }).first(function(shop) {
+      shop.explain()
+      shop.orders.where({ status: 'pending' }).last(function(o) {
+      console.log(o)
+    })
   })
 
 /*

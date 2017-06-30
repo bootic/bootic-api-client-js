@@ -14,7 +14,7 @@ var extend = Object.assign;
 var link_prefix = 'btc:';
 
 var debugging = false;
-// var debugging = true;
+var debugging = true;
 var debug = debugging ? console.log : function() { }
 
 function explain(el) {
@@ -238,8 +238,9 @@ LinkedCollection.prototype.last = function() {
 }
 
 function VirtualElement(path, pendingFn) {
-  this._path = path;
-  this._data = {};
+  this._path   = path;
+  this._data   = {};
+  this._params = {};
   this._pendingFn = pendingFn;
 }
 
@@ -257,7 +258,7 @@ VirtualElement.prototype.get = function() {
       var link = parentData._links[link_prefix + self._path];
       if (!link) throw new Error('Invalid path: ' + self._path);
 
-      return self._client.request(link, {}, function(result) {
+      return self._client.request(link, self._params, function(result) {
         self.loaded = true;
         self.result = new Proxy(new Element(client, result), proxyHandler)
         cb(self.result);
