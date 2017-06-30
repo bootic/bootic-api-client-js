@@ -9,17 +9,47 @@ process.on('unhandledRejection', (reason, p) => {
    // application specific logging, throwing an error, or other logic here
 });
 
+function searchOrders(root) {
+  root.shops.where({ subdomain: 'oxygen' }).first(function(shop) {
+    shop.orders.search({ status: 'foo' }).then(function(result) {
+      // console.log('result', result)
+      result.each(function(order, i) {
+        console.log(i, order.total)
+      })
+    })
+  })
+}
+
+function searchOrdersDirect(root) {
+  root.shops.where({ subdomain: 'oxygen' }).first
+      .orders.search({ status: 'checkout' }).then(function(result) {
+        // console.log('result', result)
+        result.each(function(order, i) {
+          console.log(i, order.total, order.status)
+        })
+      })
+}
+
 client
   .authorize()
   .then(function(root) {
 
-    root.shops.first(function(s) {
+    // searchOrders(root);
+    searchOrdersDirect(root);
+
+/*
+    root.shops.last(function(s) {
       console.log('Shop:', s.name)
     })
 
-    root.shops.where({ subdomain: 'romano' }).orders.last(function(o) {
-      console.log(o)
+    root.shops.where({ subdomain: 'romano' }).first(function(shop) {
+      console.log(shop.description)
     })
+
+    root.shops.where({ subdomain: 'romano' }).first.orders.last(function(o) {
+      console.log(o.total)
+    })
+*/
 
   })
   .catch(function(err) {

@@ -121,16 +121,16 @@ LinkedCollection.prototype.fetch = function(cb) {
 }
 
 LinkedCollection.prototype.fetchItems = function(cb) {
-  if (this.items)
-    return cb(this.items);
+  // if (this._items)
+  //   return cb(this._items);
 
   var client = this._client;
   return this.fetch(function(result) {
-    this.items = result._embedded.items.map(function(i) {
+    this._items = result._embedded.items.map(function(i) {
       return new Proxy(new Element(client, i), proxyHandler)
     });
 
-    cb(this.items)
+    cb(this._items)
   }.bind(this))
 }
 
@@ -187,7 +187,7 @@ LinkedCollection.prototype.sort = function() {
 LinkedCollection.prototype.each = function() {
   return function each(cb) {
     return this.fetchItems(function(items) {
-      items.forEach(function(i) { cb(i) });
+      items.forEach(function(i, n) { cb(i, n) });
     })
   }.bind(this)
 }
@@ -267,7 +267,18 @@ function EmbeddedCollection(client, items) {
 EmbeddedCollection.prototype = Object.create(LinkedCollection.prototype);
 
 EmbeddedCollection.prototype.fetchItems = function(cb) {
-  return cb(this._items);
+  if (!this._params || Object.keys(this._params).length == 0)
+    return cb(this._items);
+
+  var params = this._params;
+  var subset = this._items.filter(function(el) {
+    for (var key in params) {
+      if (el[key] && el[key] == params[key])
+        return true;
+    }
+  });
+
+  cb(subset);
 }
 
 EmbeddedCollection.prototype.find = function(cb) {
@@ -279,26 +290,6 @@ EmbeddedCollection.prototype.find = function(cb) {
 
       return found ? resolve(found) : reject(new Error('Not found'))
     }.bind(this))
-  }.bind(this)
-}
-
-EmbeddedCollection.prototype.where = function() {
-  return function where(params) {
-
-    var subset = this._items.filter(function(el) {
-      for (var key in params) {
-        if (el[key] && el[key] == params[key])
-          return true;
-      }
-    });
-
-    if (!this._original_items) this._original_items = this._items;
-    this._items = subset;
-    return this.proxy;
-
-    // var target = new EmbeddedCollection(this._client, subset);
-    // return new Proxy(target, proxyHandler);
-
   }.bind(this)
 }
 
@@ -321,6 +312,19 @@ let proxyHandler = {
       return target._data[name];
     }
 
+    if (name != 'shops' && target.hasEmbedded(name)) { // found embedded
+      debug('Found embedded:', name);
+
+      if (name[name.length-1] == 's') { // plural, assume collection
+        var target = new EmbeddedCollection(target._client, target._embedded[name]);
+      } else {
+        var target = new Element(target.client, target._embedded[name]);
+      }
+
+      var proxy = new Proxy(target, proxyHandler);
+      target.proxy = proxy;
+      return proxy;
+    }
 
     if (target.hasLink(name) || target.hasLink('all_' + name)) {
 
@@ -343,21 +347,6 @@ let proxyHandler = {
       return proxy;
     }
 
-    if (target.hasEmbedded(name)) { // found embedded
-      debug('Found embedded:', name);
-
-      if (name[name.length-1] == 's') { // plural, assume collection
-        var target = new EmbeddedCollection(target._client, target._embedded[name]);
-      } else {
-        var target = new Element(target.client, target._embedded[name]);
-      }
-
-      var proxy = new Proxy(target, proxyHandler);
-      target.proxy = proxy;
-      return proxy;
-    }
-
-
     if (typeof target[name] == 'function') { // method exists
       debug('Found method:', name);
       return target[name].call(target);
@@ -374,28 +363,6 @@ let proxyHandler = {
     // return new Proxy(target, proxyHandler);
   }
 }
-
-/*
-
-let rootHandler = {
-  get: function(target, name) {
-    if (name.toString().match(/inspect|valueOf|toStringTag/)) {
-      return;
-    }
-
-    target.addPath(name);
-  }
-}
-
-var RootElement = {
-  paths: ['root']
-};
-
-RootElement.addPath = function(path) {
-  this.paths.push(path);
-}
-
-*/
 
 var ROOT_URL = 'https://api.bootic.net/v1';
 
@@ -428,25 +395,28 @@ Client.prototype.authorize = function() {
       var target  = new Element(client, data);
       client.root = new Proxy(target, proxyHandler);
       resolve(client.root);
-
     }, reject);
   })
 }
 
 Client.prototype.request = function(link, params, onSuccess, onError) {
   var client = this;
+
+  var start = Date.now();
   console.log((link.method || 'GET').blue, link.href.split('{')[0].grey)
 
   sendRequest(link.method, link.href, params, client.requestHeaders)
     .then(handleResponse)
     .catch(function(err) {
-      console.log(err);
+      // console.log(err);
       onError && onError(err);
     });
 
   function handleResponse(resp) {
-    var code = resp.status;
-    console.log(code.toString().cyan, link.href.split('{')[0].grey)
+    var code = resp.status,
+        time = Date.now() - start;
+
+    console.log(code.toString().cyan, link.href.split('{')[0].grey, time/1000)
 
     switch(code) {
       case 401:
@@ -486,6 +456,12 @@ function sendRequest(method, url, params, headers) {
   options.headers['Accept'] = 'application/json';
   options.headers['Content-Type'] = 'application/json';
 
+  // temporary hack
+  if (params.subdomain) {
+    params.subdomains = params.subdomain;
+    delete params.subdomain;
+  }
+
   if (~url.indexOf('{')) { // templated
     var template = uriTemplate(url);
     url = template.fill(params);
@@ -498,6 +474,7 @@ function sendRequest(method, url, params, headers) {
   if (Object.keys(params).length > 0)
     options.body = JSON.stringify(params)
 
+  // console.log(url, options)
   return fetch(url, options);
 }
 
