@@ -17,7 +17,7 @@ client
       console.log('Shop:', s.name)
     })
 
-    root.shops.first.orders.last(function(o) {
+    root.shops.where({ subdomain: 'romano' }).orders.last(function(o) {
       console.log(o)
     })
 
