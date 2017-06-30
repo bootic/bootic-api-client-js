@@ -63,6 +63,8 @@ function LinkedElement(client, link) {
   this.loaded = false;
 }
 
+LinkedElement.prototype = Object.create(Element.prototype);
+
 LinkedElement.prototype.get = function(cb) {
   if (this._data)
     return cb(this._data);
@@ -221,6 +223,35 @@ LinkedCollection.prototype.last = function() {
   return new Proxy(fn, functionProxy);
 }
 
+function VirtualElement(path, pendingFn) {
+  this._path = path;
+  this._data = {};
+  this._pendingFn = pendingFn;
+}
+
+VirtualElement.prototype = Object.create(Element.prototype);
+
+VirtualElement.prototype.get = function() {
+  return function get(cb) {
+    if (this.result)
+      return cb(this.result);
+
+    var self = this;
+    this._pendingFn(function(parentData, client) {
+      self._client = client;
+
+      var link = parentData._links[link_prefix + self._path];
+      if (!link) throw new Error('Invalid path: ' + self._path);
+
+      return self._client.request(link, {}, function(result) {
+        self.loaded = true;
+        self.result = new Proxy(new Element(client, result), proxyHandler)
+        cb(self.result);
+      }.bind(this))
+    })
+  }.bind(this)
+}
+
 function VirtualCollection(path, pendingFn) {
   // this._client = client;
   this._path = path;
@@ -230,28 +261,17 @@ function VirtualCollection(path, pendingFn) {
 }
 
 VirtualCollection.prototype = Object.create(LinkedCollection.prototype);
-
-VirtualCollection.prototype.fetch = function(cb) {
-  if (this.result)
-    return cb(this.result);
-
-  var self = this;
-  this._pendingFn(function(parentData, client) {
-    self._client = client;
-
-    var link = parentData._links[link_prefix + self._path];
-    if (!link) throw new Error('Invalid path: ' + self._path);
-
-    return self._client.request(link, {}, function(result) {
-      self.loaded = true;
-      cb(self.result = result);
-    }.bind(this))
-  })
-}
+VirtualCollection.prototype.fetch = VirtualElement.prototype.get;
 
 var functionProxy = {
   get: function(target, name) {
-    var obj = new VirtualCollection(name, target);
+    console.log('function proxy being requested', name)
+
+    if (name[name.length-1] == 's')
+      var obj = new VirtualCollection(name, target);
+    else
+      var obj = new VirtualElement(name, target);
+
     return new Proxy(obj, proxyHandler);
   }
 }

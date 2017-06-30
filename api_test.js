@@ -1,7 +1,7 @@
 var BooticAPI = require('./api');
 
 var client = new BooticAPI({ 
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4Nzk3ODA0LCJleHAiOjE0OTg4MDE0MDQsInR0bCI6MzYwMCwianRpIjoiNWJkMSJ9.PV4yZbbatYvXoThGMdoGTPf_JUmZPv7hhLQVIS0JAYY5QITr6JrzeJVp91ZbJ1qUWHoJX0r4tTpkrQoO-h-N4FLKNL65i5e1BHWFc_GrWZWhj0eFdWEetHq-7GZGfT6Q9sxaE6Va9_TZswPRGlLe8YKeJtLbIC75nJaTnUJBYO4'
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODAxNDEyLCJleHAiOjE0OTg4MDUwMTIsInR0bCI6MzYwMCwianRpIjoiNTkwYyJ9.TjlAOE-oZd1XaE-r5dvZqzbwFeHXFzkjiyxWHZsRrEGkaUZa2grY6LokUDWxaWJQHA5mfV7aFYSRPrzGQcvXRk9ac0oPKQsAVluOYGXm6wP7tsNF3CaZsEGA5lRn2Qy8zTm3NhCz_F39qZitdbQ1k7X9TlhLlxk6DzXK7pG6DV0'
 })
 
 process.on('unhandledRejection', (reason, p) => {
@@ -35,7 +35,13 @@ client
   .then(function(root) {
 
     // searchOrders(root);
-    searchOrdersDirect(root);
+    // earchOrdersDirect(root);
+
+    root.shops.first.theme.get(function(theme) {
+      theme.templates.each(function(t) {
+        console.log(t)
+      })
+    })
 
 /*
     root.shops.last(function(s) {
