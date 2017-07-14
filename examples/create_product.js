@@ -32,7 +32,7 @@ function getProductInfo(shop) {
 }
 
 function createProduct(shop, info) {
-  console.log('Creating product in shop', shop);
+  console.log('Creating product in shop', shop.subdomain);
   return shop.create_product(info);
 }
 
