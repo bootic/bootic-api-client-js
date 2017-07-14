@@ -56,3 +56,18 @@ bootic
   .catch(function(err) {
     console.log('err!', err)
   })
+
+/*
+
+  BONUS! and a less promisy way of writing the above:
+
+  bootic.authorize(token).then(function(root) {
+    root.shops.all(function(list) {
+      var shop = helpers.selectShopFrom(list);
+      getProductInfo(shop, function(info) {
+        createProduct(shop, info);
+      })
+    })
+  })
+
+*/
