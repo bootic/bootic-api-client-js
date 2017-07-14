@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "colour": "^0.7.1",
+    "inquirer": "^3.2.0",
     "node-fetch-polyfill": "^2.0.6",
+    "reply": "^0.4.1",
     "uri-templates": "^0.2.0",
     "url-template": "^2.0.8"
   }

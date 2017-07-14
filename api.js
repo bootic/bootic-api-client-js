@@ -14,7 +14,7 @@ var extend = Object.assign;
 var link_prefix = 'btc:';
 
 var debugging = false;
-var debugging = true;
+// var debugging = true;
 var debug = debugging ? console.log : function() { }
 
 function explain(el) {
@@ -26,6 +26,17 @@ function explain(el) {
     console.log(' -- Embedded:', el._embedded);
   };
 }
+
+// promise vs callback wrapper
+function invoke(fn, cb) {
+  if (cb)
+    return fn(cb);
+
+  return new Promise(function(resolve, reject) {
+    fn(resolve);
+  })
+}
+
 
 ////////////////////////////////
 
@@ -54,23 +65,6 @@ Element.prototype.hasEmbedded = function(name) {
   return this._embedded && this._embedded[name];
 }
 
-// Element.prototype.addPath = function(path) {
-  // this._paths.push(path);
-// }
-
-/*
-function LinkedElement(client, link) {
-  Element.call(this, client, {});
-  this._link = link;
-}
-
-LinkedElement.prototype = Object.create(Element.prototype);
-
-LinkedElement.prototype.get = function() {
-  return this._client.request(this._link, cb)
-}
-*/
-
 function LinkedElement(client, link) {
   this._client = client;
   this._link = link;
@@ -88,32 +82,6 @@ LinkedElement.prototype.get = function(cb) {
     cb(this._data = data);
   }.bind(this))
 }
-
-/*
-function LinkedAction(client, link) {
-  // Element.call(this, client, {});
-  this._data   = {};
-  this._client = client;
-  this._link   = link;
-}
-
-LinkedAction.prototype = Object.create(Element.prototype);
-
-LinkedAction.prototype.with = function() {
-  return function(params) {
-    this._params = params;
-    return this.proxy;
-  }.bind(this)
-}
-
-LinkedAction.prototype.run = function() {
-  return function run(cb) {
-    return this._client.request(this._link, this._params, cb);
-  }.bind(this)
-}
-*/
-
-//////////////////////////////////////////////////////
 
 function LinkedCollection(client, link, singular_link) {
   Element.call(this, client, {});
@@ -150,6 +118,7 @@ LinkedCollection.prototype.fetchItems = function(cb) {
   }.bind(this))
 }
 
+/*
 LinkedCollection.prototype.callAction = function(name) {
   var self = this;
 
@@ -175,6 +144,7 @@ LinkedCollection.prototype.callAction = function(name) {
     })
   }
 }
+*/
 
 LinkedCollection.prototype.find = function() {
   return function find(id) {
@@ -202,17 +172,20 @@ LinkedCollection.prototype.sort = function() {
 
 LinkedCollection.prototype.each = function() {
   return function each(cb) {
-    return this.fetchItems(function(items) {
-      items.forEach(function(i, n) { cb(i, n) });
-    })
+    return invoke(function(done) {
+      this.fetchItems(function(items) {
+        items.forEach(function(i, n) { cb(i, n) });
+      })
+    }.bind(this), cb);
   }.bind(this)
 }
 
+
 LinkedCollection.prototype.all = function() {
   return function all(cb) {
-    return this.fetchItems(function(items) {
-      cb(items);
-    })
+    return invoke(function(done) {
+      this.fetchItems(function(items) { done(items) })
+    }.bind(this), cb);
   }.bind(this)
 }
 
@@ -229,9 +202,11 @@ LinkedCollection.prototype.first = function() {
 
 LinkedCollection.prototype.last = function() {
   var fn = function last(cb) {
-    return this.fetchItems(function(items) {
-      cb(items[items.length-1]);
-    })
+    return invoke(function(done) {
+      return this.fetchItems(function(items) {
+        cb(items[items.length-1]);
+      })
+    }.bind(this), cb);
   }.bind(this);
 
   return new Proxy(fn, functionProxy);
@@ -520,8 +495,12 @@ function sendRequest(method, url, params, headers) {
   if (Object.keys(params).length > 0)
     options.body = JSON.stringify(params)
 
-  console.log(url, JSON.stringify(options).yellow)
+  debug(url, JSON.stringify(options).yellow)
   return fetch(url, options);
 }
 
 module.exports = Client;
+
+module.exports.authorize = function(token) {
+  return new Client({ accessToken: token }).authorize(token);
+}

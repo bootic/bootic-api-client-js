@@ -1,7 +1,11 @@
 var BooticAPI = require('./api');
 
+// var token = process.argv[2];
+// if (!token) { console.log('Token required'); process.exit(1) };
+
 var client = new BooticAPI({ 
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk4ODU2NzYxLCJleHAiOjE0OTg4NjAzNjEsInR0bCI6MzYwMCwianRpIjoiZTk0MiJ9.EM-rrxhaI9Eh3crmtiplYH2XlFd0m-jMbINVr-meQn4p93uCFcOKFbqXWXlgfxMWGyOhW3v2faDFlotAVqq6QvsG4nfUBadnLUiz5H2jSPVUnwUXIRKqHtJo5gtJUyW0wwNVaE6uu_c4JschD_p9S8Mk49MmTogQBzOvxn4mX6U'
+//  accessToken: token
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk5OTkzNjcwLCJleHAiOjE0OTk5OTcyNzAsInR0bCI6MzYwMCwianRpIjoiYjNmZiJ9.YDy3Jzcnw6fCSrOatbIUFgfUSgtU1cD0Wjmxoa7rcvYJocc57-C5XYMvNAwTRhmh9M9Sv2LKo4JT4nhZQIPXCqCqxpCQB02rODFcPJ2SrLHpzd-StroBWBEzxmwPGlbzkQ6FHmVzyd27sTHNWG80DbIbP4f4_UT8A09jXQhDHko'
 })
 
 process.on('unhandledRejection', (reason, p) => {
@@ -20,14 +24,24 @@ function searchOrders(root) {
   })
 }
 
-function searchOrdersDirect(root) {
+function getOrdersDirect(root) {
   root.shops.where({ subdomain: 'oxygen' }).first
-      .orders.search({ status: 'checkout' }).then(function(result) {
-        // console.log('result', result)
-        result.each(function(order, i) {
-          console.log(i, order.total, order.status)
-        })
-      })
+    .orders.where({ status: 'checkout' }).last(function(order) {
+      console.log(order.total, order.status)
+      // result.each(function(order, i) {
+      //   console.log(i, order.total, order.status)
+      // })
+    })
+}
+
+
+function getOrdersFromShop(root) {
+  root.shops.where({ subdomain: 'romano' }).first(function(shop) {
+    shop.explain()
+    shop.orders.where({ status: 'pending' }).last(function(o) {
+      console.log(o.status, o.total)
+    })
+  })
 }
 
 client
@@ -35,7 +49,8 @@ client
   .then(function(root) {
 
     // searchOrders(root);
-    // earchOrdersDirect(root);
+    getOrdersDirect(root);
+    // getOrdersFromShop(root)
 
 //     root.shops.first(function(shop) {
 //       shop.inspect()
@@ -49,12 +64,7 @@ client
     })
 */
 
-  root.shops.where({ subdomain: 'romano' }).first(function(shop) {
-      shop.explain()
-      shop.orders.where({ status: 'pending' }).last(function(o) {
-      console.log(o)
-    })
-  })
+
 
 /*
     root.products.where({ shop_subdomains: 'romano', tags: 'Cartera' }).all(function(set) {
