@@ -1,11 +1,11 @@
-var BooticAPI = require('./api');
+var BooticAPI = require('.');
 
 // var token = process.argv[2];
 // if (!token) { console.log('Token required'); process.exit(1) };
 
 var client = new BooticAPI({ 
 //  accessToken: token
-  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNDk5OTkzNjcwLCJleHAiOjE0OTk5OTcyNzAsInR0bCI6MzYwMCwianRpIjoiYjNmZiJ9.YDy3Jzcnw6fCSrOatbIUFgfUSgtU1cD0Wjmxoa7rcvYJocc57-C5XYMvNAwTRhmh9M9Sv2LKo4JT4nhZQIPXCqCqxpCQB02rODFcPJ2SrLHpzd-StroBWBEzxmwPGlbzkQ6FHmVzyd27sTHNWG80DbIbP4f4_UT8A09jXQhDHko'
+  accessToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdXRoIjowLCJhcHAiOjkzLCJ1aWQiOjAsInNpZHMiOls0N10sImFpZCI6NDYsInNjb3BlcyI6WyJnb2QiXSwiaWF0IjoxNTAwNTI4MjczLCJleHAiOjE1MDA1MzE4NzMsInR0bCI6MzYwMCwianRpIjoiZTdiNSJ9.h0DhC2rgIIdhE2DesGEOl0xPP7ijxnBx0Bcqa6Dop2NvL6QjFocLhkOjq37vpMMwTqqDc1pBN9N6Z0Gn8Qo9V170DgoF8GFwvI6aCKMR_ZK3MOsPzawjfllK8RBgNt_NEyR61J8Mvl1p6HFOEa0dLMU9ZAj16zmkzUYnpgnBRqU'
 })
 
 process.on('unhandledRejection', (reason, p) => {

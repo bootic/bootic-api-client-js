@@ -2,7 +2,6 @@
   "name": "jsclient",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "colour": "^0.7.1",
+    "debug": "^2.6.8",
     "inquirer": "^3.2.0",
     "node-fetch-polyfill": "^2.0.6",
     "reply": "^0.4.1",
