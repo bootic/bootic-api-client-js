@@ -16,5 +16,9 @@
     "optimist": "^0.6.1",
     "reply": "^0.4.1",
     "uri-templates": "^0.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "should": "^11.2.1"
   }
 }
