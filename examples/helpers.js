@@ -6,7 +6,7 @@ exports.args = function() {
 }
 
 exports.usage = function(command, args) {
-  console.log('Usage: ' + command + ' [options] ' + args);
+  console.log('Usage: ' + command + ' [options] ' + (args || ''));
   console.log('Options:')
   console.log('   --token\t\tAccess token, if using Bearer strategy.');
   console.log('   --clientId\t\tClient ID, for Credentials auth strategy.');
