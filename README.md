@@ -61,7 +61,23 @@ Options:
 
 # Using the client
 
-## Collection
+Starting from the root Element (initialized using the response from the API's `rootUrl`), an Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
+
+This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`). 
+
+## `Element`
+-----------------------------
+
+### [Element].get
+
+--> Retrieves an element's attributes and related links and embedded items.
+
+    root.account.get(function(account) {
+      console.log(account); // 
+    })
+
+
+## `Collection`
 
 ### [Collection].where(query)
 
@@ -69,9 +85,13 @@ Options:
 
     root.shops.where(subdomain: 'foo')...
 
+### [Collection].sort(cb)
+
+// TODO
+
 ### [Collection].all(cb)
 
---> Returns a whole collection of items. 
+--> Returns the full set of items for a Collection.
 
     root.shops.all(function(shops) {
       console.log(shops) // [Collection]
@@ -85,33 +105,13 @@ Options:
 
 --> Returns the last item of a collection.
 
-### [Collection].forEach(cb)
+### [Collection].each(cb)
 
 --> Iterates over each of a collection's items. 
 
     root.shops.forEach(function(shop) {
       console.log(shop) // [Entity]
     })
-
-### [Collection].map(cb)
-
---> Maps over each collection's element, creating a new array with the returned values. 
-
-    var names = root.shops.map(function(shop) {
-      return shop.name;
-    })
-
-## Element
------------------------------
-
-### [Element].get
-
---> Retrieves an element's attributes and related links and embedded items.
-
-    root.account.get(function(account) {
-      console.log(account); // 
-    })
-
 
 ## Examples
 -----------------------------
