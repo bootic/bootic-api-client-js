@@ -1,3 +1,8 @@
+# Bootic JS API Client
+
+# THIS README IS OUTDATED. FOR UP-TO-DATE EXAMPLES CHECK THE ./examples DIRECTORY.
+
+
 # Collection
 -----------------------------
 
