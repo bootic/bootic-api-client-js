@@ -57,7 +57,7 @@ Options:
 
 # Install
 
-    yarn add bootic (eventually)
+    npm install -g bootic (or yarn add)
 
 # Using the client
 
