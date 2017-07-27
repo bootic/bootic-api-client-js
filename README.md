@@ -31,7 +31,7 @@ bootic
       console.log(`Processing ${shop.subdomain}`); // Entity attribute
 
       // follow `products` link, that returns a collection and iterate over items
-      shop.products.where(collection: 'Offers').forEach(function(product) {
+      shop.products.where(collection: 'Offers').each(function(product) {
 
         // and call the `update` action
         product.update(status: 'hidden').then(function(res) {
