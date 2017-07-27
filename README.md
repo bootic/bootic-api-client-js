@@ -1,18 +1,75 @@
 # Bootic JS API Client
 
-# THIS README IS OUTDATED. FOR UP-TO-DATE EXAMPLES CHECK THE ./examples DIRECTORY.
+Client for the [Bootic API](developers.bootic.net), written in pure Javascript, like real men do.
 
+# Usage
 
-# Collection
------------------------------
+``` js
+const bootic = require('bootic')
 
-## [Collection].where(query)
+bootic
+  .auth('bearer', { accessToken: 'aabbcc...xxyyzz' })
+  .then(function(root) {
+    return root.shops.first();
+  })
+  .then(function(shop) {
+    return shop.orders.last()
+  })
+  .then(function(order) {
+    console.log(order)
+  })
+```
+
+Or for a more advanced example, let's say we want to hide all products contained in the 'Offers' collection.
+
+``` js
+bootic
+  .auth(options)
+  .then(function(root) {
+     // both callback and promises are allowed.
+    root.shops.first(function(shop) {
+      console.log(`Processing ${shop.subdomain}`); // Entity attribute
+
+      // follow `products` link, that returns a collection and iterate over items
+      shop.products.where(collection: 'Offers').forEach(function(product) {
+
+        // and call the `update` action
+        product.update(status: 'hidden').then(function(res) {
+          console.log(res)
+        })
+      })
+    })
+```
+
+# API
+
+`.auth(strategy, opts)`
+
+Initializes the client with the given options and strategy provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials.
+
+Options:
+
+ - `accessToken`: Required for `bearer` and `authorized` strategies.
+ - `clientId`: For `credentials` and `authorized` strategies.
+ - `clientSecret`: Same as above.
+ - `rootUrl`: To use an alternate endpoint for the API root.
+ - `strategy`: Yes, you can also pass it as an option.
+
+# Install
+
+    yarn add bootic (eventually)
+
+# Using the client
+
+## Collection
+
+### [Collection].where(query)
 
 --> Requests a link with params. Returns Collection. 
 
     root.shops.where(subdomain: 'foo')...
 
-## [Collection].all(cb)
+### [Collection].all(cb)
 
 --> Returns a whole collection of items. 
 
@@ -20,15 +77,15 @@
       console.log(shops) // [Collection]
     })
 
-## [Collection].first(cb) 
+### [Collection].first(cb) 
 
 --> Returns the first item of a collection.
 
-## [Collection].last(cb) 
+### [Collection].last(cb) 
 
 --> Returns the last item of a collection.
 
-## [Collection].forEach(cb)
+### [Collection].forEach(cb)
 
 --> Iterates over each of a collection's items. 
 
@@ -36,7 +93,7 @@
       console.log(shop) // [Entity]
     })
 
-## [Collection].map(cb)
+### [Collection].map(cb)
 
 --> Maps over each collection's element, creating a new array with the returned values. 
 
@@ -44,10 +101,10 @@
       return shop.name;
     })
 
-# Element
+## Element
 -----------------------------
 
-## [Element].get
+### [Element].get
 
 --> Retrieves an element's attributes and related links and embedded items.
 
@@ -56,55 +113,14 @@
     })
 
 
-# Examples
+## Examples
 -----------------------------
 
 List products in shop:
 
-    Old version:
-
-    client.root()
-    .then(function(root) { 
-      return root.shops[0] 
-    })
-    .then(function(shop) { 
-      return client.run(shop._links["btc:products"]) 
-    })
-    .then(function(prods) {
-      console.log('products', prods)
-    })
-
-    New version:
-
-    root.shops.first(function(shop) {
-      shop.products.all(function(products) {
-        console.log(products)
-      })
-    })
-
-
 Download all images for my products:
 
-    root.products.forEach(function(product) {
-      product.images.first(function(
-
-      ))
-
-      product.images.forEach(function() {
-
-      })
-    })
 
 
 Hide products in collection 'Offers':
 
-    root.shops.first(function(shop) {
-      console.log(`Processing ${shop.subdomain}`); // Entity attribute
-
-      // follow `products` link, that returns a collection and iterate over items
-      shop.products.where(collection: 'Offers').forEach(function(product) {
-
-        // follow `hide` link
-        product.hide.call();
-      })
-    })
