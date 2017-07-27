@@ -1,4 +1,19 @@
-var inquirer = require('inquirer');
+var inquirer = require('inquirer'),
+    optimist = require('optimist');
+
+exports.args = function() {
+  return optimist.argv;
+}
+
+exports.usage = function(command, args) {
+  console.log('Usage: ' + command + ' [options] ' + args);
+  console.log('Options:')
+  console.log('   --token\t\tAccess token, if using Bearer strategy.');
+  console.log('   --clientId\t\tClient ID, for Credentials auth strategy.');
+  console.log('   --clientSecret\tClient secret, also for Credentials auth strategy.');
+  console.log('')
+  process.exit(1);
+}
 
 exports.selectFrom = function(list, attr, message) {
   var choices = list.map(function(el) { return el[attr]} );
@@ -13,10 +28,10 @@ exports.selectFrom = function(list, attr, message) {
       return el[attr] == answers.result;
     })
 
-    if (found[0]) 
+    if (found[0])
       return found[0];
-    else 
-      throw new Error('Not found: ', answers.result);                  
+    else
+      throw new Error('Not found: ', answers.result);
   });
 }
 

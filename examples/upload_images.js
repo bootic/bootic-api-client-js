@@ -1,10 +1,10 @@
-var bootic   = require('../api'),
+var bootic   = require('../'),
     reply    = require('reply'),
     helpers  = require('./helpers'),
-    token    = process.argv[2];
+    args     = helpers.args();
 
-if (!token || !process.argv[3]) {
-  console.log('Usage: ./upload_image.js [image1] [image2] .. [imageX]');
+if ((!args.token && !args.clientId) || args._.length == 0) {
+  helpers.usage('upload_image.js', '[image1] [image2] .. [imageX]');
   process.exit(1);
 }
 
@@ -20,7 +20,7 @@ function uploadImages(shop, product, images) {
 var current_shop;
 
 bootic
-  .authorize(token)
+  .auth(args)
   .then(function(root) {
     return root.shops.all();
   })
@@ -35,7 +35,7 @@ bootic
     return selectProduct(products);
   })
   .then(function(product) {
-    return uploadImages(current_shop, product, process.argv.slice(2));
+    return uploadImages(current_shop, product, args._);
   })
   .catch(function(err) {
     console.log('err!', err)

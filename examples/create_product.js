@@ -1,15 +1,14 @@
-var bootic   = require('../api'),
+var bootic   = require('../'),
     reply    = require('reply'),
     helpers  = require('./helpers'),
-    token    = process.argv[2];
+    args     = helpers.args();
 
-if (!token) {
-  console.log('Usage: ./create_products.js [token]');
-  process.exit(1);
+if (!args.token && !args.clientId) {
+  helpers.usage('create_products.js', '[order_status]');
 }
 
 const product_info = {
-  model: {
+  title: {
     message: 'Nombre del producto (e.g. iPhone 12)'
   },
   price: {
@@ -39,7 +38,7 @@ function createProduct(shop, info) {
 var current_shop;
 
 bootic
-  .authorize(token)
+  .auth(args)
   .then(function(root) {
     return root.shops.all();
   })
@@ -52,6 +51,9 @@ bootic
   })
   .then(function(info) {
     return createProduct(current_shop, info);
+  })
+  .then(function(resp, status) {
+    return console.log(status < 300 ? 'Great success!' : resp._embedded.errors);
   })
   .catch(function(err) {
     console.log('err!', err)

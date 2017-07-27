@@ -8,10 +8,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "client-oauth2": "^4.1.0",
     "colour": "^0.7.1",
     "debug": "^2.6.8",
     "inquirer": "^3.2.0",
     "node-fetch-polyfill": "^2.0.6",
+    "optimist": "^0.6.1",
     "reply": "^0.4.1",
     "uri-templates": "^0.2.0",
     "url-template": "^2.0.8"
