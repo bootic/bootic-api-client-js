@@ -116,11 +116,13 @@ This client supports chaining methods from Elements and Collections until a meth
 ## Examples
 -----------------------------
 
-List products in shop:
+Check the `examples` directory contained in this repository.
 
-Download all images for my products:
+## Contributing
 
+Just with silence for the time being. This is kind of experimental stuff so until the interface stabilizes a bit I won't accept any patches.
 
+## Copyright
 
-Hide products in collection 'Offers':
+(c) Tomas Pollak, Inventario SpA. Licensed under the Mozilla Public License (MPL).
 
