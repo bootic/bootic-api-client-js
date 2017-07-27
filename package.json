@@ -1,12 +1,12 @@
 {
-  "name": "jsclient",
-  "version": "1.0.0",
-  "description": "",
+  "name": "bootic",
+  "version": "0.0.1",
+  "description": "API client for the Bootic API",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MPL",
   "dependencies": {
     "client-oauth2": "^4.1.0",
     "colour": "^0.7.1",
