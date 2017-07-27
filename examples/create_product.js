@@ -8,7 +8,7 @@ if (!args.token && !args.clientId) {
 }
 
 const product_info = {
-  title: {
+  model: {
     message: 'Nombre del producto (e.g. iPhone 12)'
   },
   price: {

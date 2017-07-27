@@ -11,6 +11,8 @@ exports.usage = function(command, args) {
   console.log('   --token\t\tAccess token, if using Bearer strategy.');
   console.log('   --clientId\t\tClient ID, for Credentials auth strategy.');
   console.log('   --clientSecret\tClient secret, also for Credentials auth strategy.');
+  console.log('   --strategy\t\tStrategy to use: bearer, credentials, or authorized. Optional.');
+  console.log('   --scope\t\tOAuth2 authorization scope. Optional.');
   console.log('')
   process.exit(1);
 }
