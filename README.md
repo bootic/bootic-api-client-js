@@ -24,7 +24,7 @@ Or for a more advanced example, let's say we want to hide all products contained
 
 ``` js
 bootic
-  .auth(options)
+  .auth({ clientId: '123abc...', clientSecret: 'zxy321...' }) // credentials strategy
   .then(function(root) {
     // both callback and promises are allowed.
     root.shops.first(function(shop) {
