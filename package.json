@@ -8,12 +8,16 @@
   "author": "Tomás Pollak <tomas@forkhq.com>",
   "license": "MPL",
   "dependencies": {
+    "Q": "0.0.1",
     "client-oauth2": "^4.1.0",
     "colour": "^0.7.1",
     "debug": "^2.6.8",
     "inquirer": "^3.2.0",
     "node-fetch-polyfill": "^2.0.6",
     "optimist": "^0.6.1",
+    "otaat-repl": "^1.0.2",
+    "promirepl": "^1.0.1",
+    "q": "^1.5.0",
     "reply": "^0.4.1",
     "uri-templates": "^0.2.0"
   },

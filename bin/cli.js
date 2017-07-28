@@ -16,7 +16,9 @@ function startRepl(root) {
     useColors: true
   });
 
-  replServer.context.root = root;
+  replServer.context.r = root;
+  replServer.context.current = root;
+  require('./promise-repl').promirepl(replServer);
 }
 
 bootic.auth(args).then(function(root) {
