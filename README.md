@@ -10,7 +10,7 @@ const bootic = require('bootic')
 bootic
   .auth('bearer', { accessToken: 'aabbcc...xxyyzz' })
   .then(function(root) {
-    return root.shops.first();
+    return root.shops.first()
   })
   .then(function(shop) {
     return shop.orders.last()
@@ -26,9 +26,9 @@ Or for a more advanced example, let's say we want to hide all products contained
 bootic
   .auth(options)
   .then(function(root) {
-     // both callback and promises are allowed.
+    // both callback and promises are allowed.
     root.shops.first(function(shop) {
-      console.log(`Processing ${shop.subdomain}`); // Entity attribute
+      console.log(`Processing ${shop.subdomain}`) // Entity attribute
 
       // follow `products` link, that returns a collection and iterate over items
       shop.products.where(collection: 'Offers').each(function(product) {
@@ -45,7 +45,7 @@ bootic
 
 `.auth(strategy, opts)`
 
-Initializes the client with the given options and strategy provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials.
+Initializes the client with the given options and `strategy` provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials.
 
 Options:
 
