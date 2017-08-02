@@ -6,14 +6,17 @@ exports.args = function() {
 }
 
 exports.usage = function(command, args) {
-  console.log('Usage: ' + command + ' [options] ' + (args || ''));
-  console.log('Options:')
-  console.log('   --token\t\tAccess token, if using Bearer strategy.');
-  console.log('   --clientId\t\tClient ID, for Credentials auth strategy.');
-  console.log('   --clientSecret\tClient secret, also for Credentials auth strategy.');
-  console.log('   --strategy\t\tStrategy to use: bearer, credentials, or authorized. Optional.');
-  console.log('   --scope\t\tOAuth2 authorization scope. Optional.');
-  console.log('')
+  var put = console.log;
+  put('Usage: ' + command + ' [options] ' + (args || ''));
+  put('Options:')
+  put('   --strategy\t\tAuth strategy to use: `bearer`, `credentials`, or `authorized`. Optional.');
+  put('   --token\t\tAccess token, if using `bearer` strategy.');
+  put('   --clientId\t\tClient ID, for `credentials` authorization strategy.');
+  put('   --clientSecret\tClient secret, also for `credentials` auth strategy.');
+  put('   --rootUrl\t\tRoot API URL. Useful if testing against a local or staging server.');
+  put('   --authHost\t\tHost to use for OAuth2 authorization (used in `credentials` or `authorized` strategies).');
+  put('   --scope\t\tOAuth2 authorization scope. Optional.');
+  put('')
   process.exit(1);
 }
 

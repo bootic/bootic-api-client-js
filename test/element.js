@@ -1,6 +1,6 @@
 var should = require('should'),
    Element = require('../lib/elements'),
-  rootData = require('./fixtures/root')
+  rootData = require('./fixtures/root');
 
 describe('root', function() {
 
@@ -51,13 +51,13 @@ describe('root', function() {
     it('returns proxied link if found', function() {
       var obj = root.docs;
       should(obj).be.a.Object();
-      obj.constructor.name.should.eql('Element')
+      obj.constructor.name.should.eql('LinkedCollection')
     })
 
     it('returns embedded collection if found', function() {
       var obj = root.shops;
       should(obj).should.be.a.Object();
-      obj.constructor.name.should.eql('Element')
+      obj.constructor.name.should.eql('Collection')
     })
 
   })
