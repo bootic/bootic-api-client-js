@@ -19,7 +19,7 @@ function startRepl(root) {
   var replServer = repl.start({
     prompt: "bootic> ",
     useColors: true
-  });
+  })
 
   replServer.context.r = root
   replServer.context.c = root
