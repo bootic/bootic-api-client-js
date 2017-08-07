@@ -46,6 +46,5 @@ exports.selectShopFrom = function(list) {
   else if (list.length == 1)
     return new Promise(function(resolve, reject) { resolve(list[0]) })
 
-  var subs = list.map(function(s) { return s.subdomain });
   return exports.selectFrom(list, 'subdomain', 'Elige una tienda');
 }
