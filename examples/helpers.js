@@ -1,5 +1,6 @@
 var inquirer = require('inquirer'),
-    optimist = require('optimist');
+    optimist = require('optimist'),
+    reply    = require('reply');
 
 exports.args = function() {
   return optimist.argv;
@@ -20,8 +21,33 @@ exports.usage = function(command, args) {
   process.exit(1);
 }
 
+exports.getConfig = function(args, cb) {
+  reply.get({
+    token: {
+      allow_empty: true
+    },
+    clientId: {
+      allow_empty: true
+    },
+    clientSecret: {
+      allow_empty: true
+    },
+    authHost: {
+      default: 'https://auth.bootic.net'
+    },
+    rootUrl: {
+      default: 'https://api.bootic.net/v1'
+    }
+  }, function(err, res) {
+    for (var key in res)
+      if (res[key]) args[key] = res[key];
+
+    cb()
+  })
+}
+
 exports.selectFrom = function(list, attr, message) {
-  var choices = list.map(function(el) { return el[attr]} );
+  var choices = list.map(function(el) { return el[attr] });
 
   return inquirer.prompt({
     name: 'result',

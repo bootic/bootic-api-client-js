@@ -4,6 +4,7 @@
 var bootic  = require('..'),
     repl    = require('repl'),
     helpers = require('../examples/helpers'),
+    colour  = require('colour'),
     args    = helpers.args()
 
 var replSandbox  = require('./repl-sandbox'),
@@ -11,8 +12,12 @@ var replSandbox  = require('./repl-sandbox'),
     replHistory  = require('repl.history'),
     historyFile  = require('path').join(process.env.HOME, '.bootic_repl_history')
 
-if (!args.token && !args.clientId) {
+if (args.interactive) {
+  helpers.getConfig(args, run)
+} else if (!args.token && !args.clientId) {
   helpers.usage('cli.js')
+} else {
+  run()
 }
 
 function startRepl(root) {
@@ -29,9 +34,11 @@ function startRepl(root) {
   replPromises(replServer)
 }
 
-bootic.auth(args).then(function(root) {
-  startRepl(root)
-}).catch(function(err) {
-  console.log('err!', err.message)
-  console.log(err.stack)
-})
+function run() {
+  bootic.auth(args).then(function(root) {
+    startRepl(root)
+  }).catch(function(err) {
+    console.log('boom!', err.message.red)
+    // console.log(err.stack)
+  })
+}

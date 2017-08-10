@@ -15,7 +15,11 @@ module.exports = function(repl) {
         return cb(null, res)
 
       res.then(function(val) {
-        repl.context.c = val
+        if (!val.message || val.message != 'Access denied') {
+          repl.context.l = repl.context.c; // set current as last
+          repl.context.c = val;            // and set new value as current
+        }
+
         cb(null, val)
         // cb()
 
