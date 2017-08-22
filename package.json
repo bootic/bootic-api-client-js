@@ -1,6 +1,6 @@
 {
   "name": "bootic",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "API client for the Bootic API",
   "scripts": {
     "test": "node_modules/.bin/mocha test"
