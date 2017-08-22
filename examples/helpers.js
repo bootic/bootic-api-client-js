@@ -27,16 +27,22 @@ exports.getConfig = function(args, cb) {
       allow_empty: true
     },
     clientId: {
-      allow_empty: true
+      allow_empty: true,
+      depends_on: {
+        token: ''
+      }
     },
     clientSecret: {
-      allow_empty: true
+      allow_empty: true,
+      depends_on: {
+        token: ''
+      }
     },
     authHost: {
-      default: 'https://auth.bootic.net'
+      default: args.authHost || 'https://auth.bootic.net'
     },
     rootUrl: {
-      default: 'https://api.bootic.net/v1'
+      default: args.rootUrl || 'https://api.bootic.net/v1'
     }
   }, function(err, res) {
     for (var key in res)
