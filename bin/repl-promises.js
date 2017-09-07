@@ -6,6 +6,10 @@
 module.exports = function(repl) {
   var realEval = repl.eval
 
+  function emptyResult(val) {
+    return val === null || val === undefined;
+  }
+
   function promiseEval(cmd, context, filename, cb) {
     realEval.call(repl, cmd, context, filename, function(err, res) {
       if (err)
@@ -15,7 +19,7 @@ module.exports = function(repl) {
         return cb(null, res)
 
       res.then(function(val) {
-        if (!val.hasOwnProperty('message') || val.message != 'Access denied') {
+        if (emptyResult(val) || (!val.hasOwnProperty('message') || val.message != 'Access denied')) {
           repl.context.l = repl.context.c; // set current as last
           repl.context.c = val;            // and set new value as current
         }
