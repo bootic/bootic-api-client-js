@@ -29,13 +29,13 @@ exports.getConfig = function(args, cb) {
     clientId: {
       allow_empty: true,
       depends_on: {
-        token: ''
+        token: undefined
       }
     },
     clientSecret: {
       allow_empty: true,
       depends_on: {
-        token: ''
+        token: undefined
       }
     },
     authHost: {

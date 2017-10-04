@@ -18,7 +18,7 @@
     "otaat-repl": "^1.0.2",
     "promirepl": "^1.0.1",
     "q": "^1.5.0",
-    "reply": "^0.4.1",
+    "reply": "^0.5.0",
     "uri-templates": "^0.2.0"
   },
   "devDependencies": {
