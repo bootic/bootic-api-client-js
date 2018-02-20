@@ -63,11 +63,11 @@ bootic
 
   BONUS! and a less promisy way of writing the above:
 
-  bootic.authorize(token).then(function(root) {
+  bootic.auth(token).then(function(root) {
     root.shops.all(function(list) {
       var shop = helpers.selectShopFrom(list);
-      getProductInfo(shop, function(info) {
-        createProduct(shop, info);
+      reply.get(product_info, function(err, info) {
+        if (!err) createProduct(shop, info);
       })
     })
   })
