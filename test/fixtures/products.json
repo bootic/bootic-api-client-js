@@ -1,0 +1,2096 @@
+{
+  "_class": [
+    "results",
+    "products"
+  ],
+  "_links": {
+    "curies": [
+      {
+        "name": "btc",
+        "href": "https://api.bootic.net/rels/{rel}",
+        "templated": true
+      }
+    ],
+    "self": {
+      "href": "http://localhost:5001/v1/products?page=1&per_page=30&shop_ids=1&status=visible"
+    },
+    "btc:shops": {
+      "href": "http://localhost:5001/v1/shops/for_products?shop_ids=1&status=visible",
+      "title": "Shops for the current product results"
+    }
+  },
+  "_actions": {
+    "search": {
+      "prompt": "Search and filter products",
+      "method": "GET",
+      "type": "application/json",
+      "href": "http://localhost:5001/v1/products",
+      "fields": [
+        {
+          "name": "page",
+          "prompt": "page number",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "per_page",
+          "prompt": "items per page",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "q",
+          "prompt": "full text search",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "status",
+          "prompt": "status",
+          "value": null,
+          "options": [
+            "visible",
+            "hidden",
+            "all"
+          ]
+        },
+        {
+          "name": "shop_subdomains",
+          "prompt": "shop subdomains",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "collections",
+          "prompt": "collection slugs, comma-separated",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "shop_ids",
+          "prompt": "shop ids",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "type_ids",
+          "prompt": "type ids",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "tags",
+          "prompt": "tag names",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "global_tags",
+          "prompt": "global tag names",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "variants",
+          "prompt": "variant titles",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "sku",
+          "prompt": "variant SKUs, comma-separated",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "currency",
+          "prompt": "currency code",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "price_gte",
+          "prompt": "min price",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "price_lte",
+          "prompt": "max price",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "discount_percentage_gte",
+          "prompt": "min discount percentage",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "discount_percentage_lte",
+          "prompt": "max discount percentage",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "stock_lte",
+          "prompt": "max stock",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "stock_gte",
+          "prompt": "min stock",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "created_on_gte",
+          "prompt": "creation date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "created_on_lte",
+          "prompt": "creation date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "updated_on_gte",
+          "prompt": "update date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "updated_on_lte",
+          "prompt": "update date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "account_status",
+          "prompt": "account status",
+          "value": null,
+          "options": [
+            "trial",
+            "free",
+            "active",
+            "disabled",
+            "all"
+          ]
+        },
+        {
+          "name": "account_plan",
+          "prompt": "account plan",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "sort",
+          "prompt": "sort order results",
+          "value": null,
+          "options": [
+            "title.asc",
+            "title.desc",
+            "type.asc",
+            "type.desc",
+            "vendor.asc",
+            "vendor.desc",
+            "price.asc",
+            "price.desc",
+            "created_on.asc",
+            "created_on.desc",
+            "updated_on.asc",
+            "updated_on.desc",
+            "discount_percentage.asc",
+            "discount_percentage.desc",
+            "stock.asc",
+            "stock.desc"
+          ]
+        },
+        {
+          "name": "facets",
+          "prompt": "facets, comma separated",
+          "value": null,
+          "options": [
+            "shops"
+          ]
+        }
+      ]
+    }
+  },
+  "_embedded": {
+    "facets": [],
+    "items": [
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/product-3",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/93"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/93",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/93",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/93/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/93/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "93",
+        "slug": "product-3",
+        "title": "2221",
+        "price": 0,
+        "price_comparison": null,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-12-08T22:20:49.000Z",
+        "updated_on": "2017-12-08T22:20:49.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "2221",
+              "id": "166",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 123,
+              "price": 0,
+              "price_comparison": null
+            }
+          ],
+          "collections": []
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/qwe-2",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/92"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/92",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/92",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/92/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/92/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "92",
+        "slug": "qwe-2",
+        "title": "qwe",
+        "price": 1000,
+        "price_comparison": 2000,
+        "discount_percentage": 50,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-12-08T22:06:53.000Z",
+        "updated_on": "2018-02-14T23:39:54.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "qwe",
+              "id": "165",
+              "stock": 1,
+              "available_if_no_stock": true,
+              "sku": null,
+              "weight_in_grams": 123,
+              "price": 1000,
+              "price_comparison": 2000
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 240,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/product-2",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/90"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/90",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/90",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/90/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/90/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "90",
+        "slug": "product-2",
+        "title": "rr",
+        "price": 123,
+        "price_comparison": null,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-11-23T22:52:14.000Z",
+        "updated_on": "2017-12-01T01:21:29.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "rr",
+              "id": "159",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 123,
+              "price_comparison": null
+            }
+          ],
+          "collections": []
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/qwe",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/89"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/89",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/89",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/89/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/89/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "89",
+        "slug": "qwe",
+        "title": "qwe",
+        "price": 0,
+        "price_comparison": 0,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-11-23T22:51:16.000Z",
+        "updated_on": "2017-12-01T01:21:29.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "qwe",
+              "id": "158",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 0,
+              "price_comparison": 0
+            }
+          ],
+          "collections": []
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/qweqwe",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/88"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/88",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/88",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/88/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/88/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "88",
+        "slug": "qweqwe",
+        "title": "qweqwe",
+        "price": 0,
+        "price_comparison": 0,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-11-23T22:50:45.000Z",
+        "updated_on": "2017-12-01T01:21:29.000Z",
+        "stock": 2,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "qweqwe",
+              "id": "157",
+              "stock": 2,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": null,
+              "price": 0,
+              "price_comparison": 0
+            }
+          ],
+          "collections": []
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/qweawef",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/62"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/62",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/62",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/62/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/62/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "62",
+        "slug": "qweawef",
+        "title": "Test product",
+        "price": 200,
+        "price_comparison": 4111,
+        "discount_percentage": 95.13500364874726,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-11-23T01:26:41.000Z",
+        "updated_on": "2017-12-11T12:40:42.000Z",
+        "stock": 14,
+        "currency_code": "CLP",
+        "tags": [
+          "lightweight",
+          "pro",
+          "gamer",
+          "studio"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/178-IMG_3962.jpg"
+              },
+              "small": {
+                "href": "/1/small/178-IMG_3962.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/178-IMG_3962.jpg"
+              },
+              "large": {
+                "href": "/1/large/178-IMG_3962.jpg"
+              },
+              "original": {
+                "href": "/1/original/178-IMG_3962.jpg"
+              }
+            },
+            "file_name": "IMG_3962.jpg",
+            "title": "IMG_3962.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "unox - 3",
+              "id": "129",
+              "stock": 11,
+              "available_if_no_stock": true,
+              "sku": "aaabbb",
+              "weight_in_grams": 234,
+              "price": 200,
+              "price_comparison": 4111
+            },
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "aa - 2",
+              "id": "162",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": "rty",
+              "weight_in_grams": null,
+              "price": 200,
+              "price_comparison": 4111
+            },
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "eee - 4",
+              "id": "163",
+              "stock": 1,
+              "available_if_no_stock": true,
+              "sku": "sd",
+              "weight_in_grams": null,
+              "price": 200,
+              "price_comparison": 4111
+            },
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "rrr - 4",
+              "id": "164",
+              "stock": 1,
+              "available_if_no_stock": true,
+              "sku": "wer",
+              "weight_in_grams": null,
+              "price": 200,
+              "price_comparison": 4111
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Lo más vendido",
+              "id": 122,
+              "shop_id": 1,
+              "slug": "popular"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 237,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 238,
+              "name": "Postura",
+              "value": "asd ",
+              "required": false,
+              "key": "fit",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 239,
+              "name": "dd",
+              "value": "ffff",
+              "required": false,
+              "key": "dd",
+              "field_type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/product",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/61"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/61",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/61",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/61/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/61/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "61",
+        "slug": "product",
+        "title": "qwe",
+        "price": 1234,
+        "price_comparison": 1234,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-11-23T01:09:47.000Z",
+        "updated_on": "2017-11-23T01:12:35.000Z",
+        "stock": 123,
+        "currency_code": "CLP",
+        "tags": [],
+        "global_tags": [],
+        "_embedded": {
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "asdff",
+              "id": "128",
+              "stock": 123,
+              "available_if_no_stock": false,
+              "sku": "aabbvqwddqwd",
+              "weight_in_grams": 234,
+              "price": 1234,
+              "price_comparison": 1234
+            }
+          ],
+          "collections": []
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/blan-kitos",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/59"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/59",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/59",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/59/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/59/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "59",
+        "slug": "blan-kitos",
+        "title": "Mamadera Twister",
+        "price": 18000,
+        "price_comparison": 23000,
+        "discount_percentage": 21.73913043478261,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "Natursutten",
+        "created_on": "2017-09-27T14:45:43.000Z",
+        "updated_on": "2018-02-14T22:59:33.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [
+          "urban",
+          "work"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/166-on-ear-white.jpg"
+              },
+              "small": {
+                "href": "/1/small/166-on-ear-white.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/166-on-ear-white.jpg"
+              },
+              "large": {
+                "href": "/1/large/166-on-ear-white.jpg"
+              },
+              "original": {
+                "href": "/1/original/166-on-ear-white.jpg"
+              }
+            },
+            "file_name": "on-ear-white.jpg",
+            "title": "on-ear-white.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Blan-KITOS",
+              "id": "118",
+              "stock": 1,
+              "available_if_no_stock": true,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 18000,
+              "price_comparison": 23000
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Lo más vendido",
+              "id": 122,
+              "shop_id": 1,
+              "slug": "popular"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 218,
+              "name": "Postura",
+              "value": "Sobre la oreja",
+              "required": false,
+              "key": "fit",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 219,
+              "name": "Distorsión Armónica",
+              "value": "0.3%",
+              "required": false,
+              "key": "distortion",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 220,
+              "name": "Nivel de presión",
+              "value": "120 dB",
+              "required": false,
+              "key": "pressure_level",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 221,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/pro-tone",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/58"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/58",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/58",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/58/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/58/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "58",
+        "slug": "pro-tone",
+        "title": "Pro-TONE",
+        "price": 48000,
+        "price_comparison": null,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-09-27T14:45:43.000Z",
+        "updated_on": "2018-02-14T22:59:43.000Z",
+        "stock": 0,
+        "currency_code": "CLP",
+        "tags": [
+          "pro",
+          "studio"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/165-black-pro.jpg"
+              },
+              "small": {
+                "href": "/1/small/165-black-pro.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/165-black-pro.jpg"
+              },
+              "large": {
+                "href": "/1/large/165-black-pro.jpg"
+              },
+              "original": {
+                "href": "/1/original/165-black-pro.jpg"
+              }
+            },
+            "file_name": "black-pro.jpg",
+            "title": "black-pro.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Pro-TONE",
+              "id": "117",
+              "stock": 0,
+              "available_if_no_stock": true,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 48000,
+              "price_comparison": null
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Lo más vendido",
+              "id": 122,
+              "shop_id": 1,
+              "slug": "popular"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/blan-co",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/57"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/57",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/57",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/57/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/57/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "57",
+        "slug": "blan-co",
+        "title": "Blan-CO",
+        "price": 35000,
+        "price_comparison": 40000,
+        "discount_percentage": 12.5,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-09-27T14:45:42.000Z",
+        "updated_on": "2018-02-14T22:59:39.000Z",
+        "stock": 0,
+        "currency_code": "CLP",
+        "tags": [
+          "pro",
+          "urban"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/162-white-big-1.jpg"
+              },
+              "small": {
+                "href": "/1/small/162-white-big-1.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/162-white-big-1.jpg"
+              },
+              "large": {
+                "href": "/1/large/162-white-big-1.jpg"
+              },
+              "original": {
+                "href": "/1/original/162-white-big-1.jpg"
+              }
+            },
+            "file_name": "white-big-1.jpg",
+            "title": "white-big-1.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Blan-CO",
+              "id": "116",
+              "stock": 0,
+              "available_if_no_stock": true,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 35000,
+              "price_comparison": 40000
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 210,
+              "name": "Postura",
+              "value": "Sobre la oreja",
+              "required": false,
+              "key": "fit",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 211,
+              "name": "Distorsión Armónica",
+              "value": "0.3%",
+              "required": false,
+              "key": "distortion",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 212,
+              "name": "Nivel de presión",
+              "value": "120 dB",
+              "required": false,
+              "key": "pressure_level",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 213,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/neg-ro",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/56"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/56",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/56",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/56/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/56/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "56",
+        "slug": "neg-ro",
+        "title": "Neg-RO",
+        "price": 0,
+        "price_comparison": 100,
+        "discount_percentage": 100,
+        "has_multiple_prices": true,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-09-27T14:45:41.000Z",
+        "updated_on": "2017-12-01T14:27:35.000Z",
+        "stock": 2,
+        "currency_code": "CLP",
+        "tags": [
+          "pro",
+          "vintage"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/160-black-retro-1.jpg"
+              },
+              "small": {
+                "href": "/1/small/160-black-retro-1.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/160-black-retro-1.jpg"
+              },
+              "large": {
+                "href": "/1/large/160-black-retro-1.jpg"
+              },
+              "original": {
+                "href": "/1/original/160-black-retro-1.jpg"
+              }
+            },
+            "file_name": "black-retro-1.jpg",
+            "title": "black-retro-1.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Neg-RO",
+              "id": "115",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 5000,
+              "price": 0,
+              "price_comparison": 100
+            },
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "XXXX",
+              "id": "161",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": null,
+              "price": 38000,
+              "price_comparison": 123
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 206,
+              "name": "Postura",
+              "value": "Sobre la oreja",
+              "required": false,
+              "key": "fit",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 207,
+              "name": "Distorsión Armónica",
+              "value": "0.3%",
+              "required": false,
+              "key": "distortion",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 208,
+              "name": "Nivel de presión",
+              "value": "120 dB",
+              "required": false,
+              "key": "pressure_level",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 209,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/game-on",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/55"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/55",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/55",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/55/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/55/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "55",
+        "slug": "game-on",
+        "title": "Game-ON",
+        "price": 29000,
+        "price_comparison": null,
+        "discount_percentage": null,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-09-27T14:45:41.000Z",
+        "updated_on": "2017-12-06T14:57:37.000Z",
+        "stock": 1,
+        "currency_code": "CLP",
+        "tags": [
+          "gamer",
+          "urban",
+          "lightweight",
+          "pro",
+          "studio"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/159-black-gamer.jpg"
+              },
+              "small": {
+                "href": "/1/small/159-black-gamer.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/159-black-gamer.jpg"
+              },
+              "large": {
+                "href": "/1/large/159-black-gamer.jpg"
+              },
+              "original": {
+                "href": "/1/original/159-black-gamer.jpg"
+              }
+            },
+            "file_name": "black-gamer.jpg",
+            "title": "black-gamer.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Game-ON",
+              "id": "114",
+              "stock": 1,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 0,
+              "price": 29000,
+              "price_comparison": null
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Lo más vendido",
+              "id": 122,
+              "shop_id": 1,
+              "slug": "popular"
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "product"
+        ],
+        "_links": {
+          "btc:web": {
+            "href": "http://test.localhost/products/pin-ka",
+            "type": "text/html",
+            "title": "Web page for this product on its original shop front-end"
+          },
+          "self": {
+            "href": "http://localhost:5001/v1/products/54"
+          },
+          "btc:update_product": {
+            "href": "http://localhost:5001/v1/shops/1/products/54",
+            "method": "put",
+            "title": "Update this product"
+          },
+          "btc:delete_product": {
+            "href": "http://localhost:5001/v1/products/54",
+            "method": "delete",
+            "title": "Remove a product"
+          },
+          "btc:create_product_asset": {
+            "href": "http://localhost:5001/v1/products/54/assets",
+            "method": "post",
+            "title": "Upload a product image"
+          },
+          "btc:create_variant": {
+            "href": "http://localhost:5001/v1/products/54/variants",
+            "method": "post",
+            "title": "Create a product variant"
+          }
+        },
+        "id": "54",
+        "slug": "pin-ka",
+        "title": "Pin-KA",
+        "price": 33333,
+        "price_comparison": 35000,
+        "discount_percentage": 4.762857142857143,
+        "has_multiple_prices": false,
+        "status": "visible",
+        "vendor": "",
+        "created_on": "2017-09-27T14:45:40.000Z",
+        "updated_on": "2018-02-14T22:59:51.000Z",
+        "stock": 17,
+        "currency_code": "CLP",
+        "tags": [
+          "woman",
+          "urban"
+        ],
+        "global_tags": [],
+        "_embedded": {
+          "type": {
+            "_class": [
+              "productType"
+            ],
+            "id": "headphones",
+            "name": "Audífonos"
+          },
+          "shop": {
+            "_class": [
+              "shop"
+            ],
+            "_links": {
+              "self": {
+                "href": "http://localhost:5001/v1/shops/1"
+              }
+            },
+            "id": "1",
+            "name": "Seaflavor",
+            "subdomain": "test",
+            "url": "test.localhost"
+          },
+          "account": {
+            "_class": [
+              "account"
+            ],
+            "plan": "xsmall",
+            "status": "active"
+          },
+          "image": {
+            "_class": [
+              "image",
+              "asset"
+            ],
+            "_links": {
+              "thumbnail": {
+                "href": "/1/thumbnail/158-pink.jpg"
+              },
+              "small": {
+                "href": "/1/small/158-pink.jpg"
+              },
+              "medium": {
+                "href": "/1/medium/158-pink.jpg"
+              },
+              "large": {
+                "href": "/1/large/158-pink.jpg"
+              },
+              "original": {
+                "href": "/1/original/158-pink.jpg"
+              }
+            },
+            "file_name": "pink.jpg",
+            "title": "pink.jpg"
+          },
+          "variants": [
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "Pin-KA",
+              "id": "113",
+              "stock": 11,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 100,
+              "price": 33333,
+              "price_comparison": 35000
+            },
+            {
+              "_class": [
+                "variant"
+              ],
+              "title": "xxx",
+              "id": "126",
+              "stock": 6,
+              "available_if_no_stock": false,
+              "sku": null,
+              "weight_in_grams": 100,
+              "price": 33333,
+              "price_comparison": 35000
+            }
+          ],
+          "collections": [
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Ofertas",
+              "id": 120,
+              "shop_id": 1,
+              "slug": "deals"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Destacamos",
+              "id": 121,
+              "shop_id": 1,
+              "slug": "featured"
+            },
+            {
+              "_class": [
+                "collection"
+              ],
+              "title": "Lo más vendido",
+              "id": 122,
+              "shop_id": 1,
+              "slug": "popular"
+            }
+          ],
+          "custom_attributes": [
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 198,
+              "name": "Postura",
+              "value": "Sobre la oreja",
+              "required": false,
+              "key": "fit",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 199,
+              "name": "Distorsión Armónica",
+              "value": "0.3%",
+              "required": false,
+              "key": "distortion",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 200,
+              "name": "Nivel de presión",
+              "value": "120 dB",
+              "required": false,
+              "key": "pressure_level",
+              "field_type": "string"
+            },
+            {
+              "_class": [
+                "customAttribute"
+              ],
+              "id": 201,
+              "name": "Inalámbrico",
+              "value": "0",
+              "required": false,
+              "key": "wireless",
+              "field_type": "boolean"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "total_items": 13,
+  "per_page": 30,
+  "page": 1
+}
