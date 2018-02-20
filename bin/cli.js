@@ -12,10 +12,10 @@ var replSandbox  = require('./repl-sandbox'),
     replHistory  = require('repl.history'),
     historyFile  = require('path').join(process.env.HOME, '.bootic_repl_history')
 
-if (!args.token && !args.clientId) {
-  helpers.getConfig(args, run)
-} else if (args.h || args.help) {
+if (args.h || args.help) {
   helpers.usage('cli.js')
+} else if (!args.token && !args.clientId) {
+  helpers.getConfig(args, run)
 } else {
   run()
 }
