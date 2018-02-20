@@ -10,8 +10,16 @@ module.exports = function(repl) {
     return val === null || val === undefined;
   }
 
-  function promiseEval(cmd, context, filename, cb) {
-    realEval.call(repl, cmd, context, filename, function(err, res) {
+  function done(repl, cb, val) {
+    if (!emptyResult(val) && val.constructor != Error) {
+      repl.context.l = repl.context.c; // set current as last
+      repl.context.c = val;            // and set new value as current
+    }
+    cb(null, val)
+  }
+
+  function promiseEval(code, context, file, cb) {
+    realEval.call(repl, code, context, file, function(err, res) {
       if (err)
         return cb(err)
 
@@ -19,23 +27,28 @@ module.exports = function(repl) {
         return cb(null, res)
 
       res.then(function(val) {
-        if (emptyResult(val) || (!val.hasOwnProperty('message') || val.message != 'Access denied')) {
-          repl.context.l = repl.context.c; // set current as last
-          repl.context.c = val;            // and set new value as current
+        if (val && typeof val.then == 'function') {
+          console.log('!!!')
+          val.then(function(v) {
+            done(repl, cb, v)
+          })
+        } else {
+          done(repl, cb, val)
         }
 
-        cb(null, val)
-        // cb()
-
       }, function(err) {
+        console.log('Promise rejected!', err)
+
         repl.outputStream.write('Promise rejected: ')
         cb(err)
-
-      }).then(null, function(uncaught) {
+/*
+      }).then(null, function(uncaught) { // TODO: figure out if this actually works
         process.nextTick(function() {
           throw uncaught // Rethrow uncaught exceptions
         })
+*/
       })
+
     })
   }
 

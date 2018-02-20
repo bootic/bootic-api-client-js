@@ -20,6 +20,10 @@ if (!args.token && !args.clientId) {
   run()
 }
 
+process.on('unhandledRejection', function(reason, p) {
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+})
+
 function startRepl(root) {
   var replServer = repl.start({
     prompt: "bootic> ",
@@ -30,7 +34,7 @@ function startRepl(root) {
   replServer.context.c = root
 
   replHistory(replServer, process.env['NODE_REPL_HISTORY'] || historyFile)
-  replSandbox(replServer)
+  //replSandbox(replServer)
   replPromises(replServer)
 }
 
@@ -39,6 +43,6 @@ function run() {
     startRepl(root)
   }).catch(function(err) {
     console.log('boom!', err.message.red)
-    // console.log(err.stack)
+    console.log(err.stack)
   })
 }
