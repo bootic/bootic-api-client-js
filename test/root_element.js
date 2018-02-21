@@ -40,9 +40,10 @@ describe('root', function() {
       root = loadRoot({}, rootData)
     })
 
-    it('throws if not found', function() {
+    // pending
+    it('throws if not found'); /* function() {
       (function() { root.foobar }).should.throw('foobar not found in Element')
-    })
+    }) */
 
     it('proxies to attribute if found', function() {
       root.user_name.should.eql('linusbenedict');
