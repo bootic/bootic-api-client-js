@@ -231,6 +231,10 @@ describe('LinkedCollection', function() {
       (function() { coll.find() }).should.throw('ID required')
     })
 
+    it('doesnt explode if not found', function() {
+      (function() { coll.find('111', function(){ }) }).should.not.throw()
+    })
+
     it('returns a promise if called without a callback', function(done) {
       var res = coll.find(12)
       res.constructor.name.should.eql('Promise');

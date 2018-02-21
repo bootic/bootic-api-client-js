@@ -33,16 +33,15 @@ describe('Collection', function() {
   before(function() {
     // stub = sinon.stub(client, 'request').callsFake(responseFn)
     coll = Elements.embeddedProxy(client, 'orders', ordersData._embedded.items);
-
-    console.log(coll);
+    // console.log(coll);
   })
 
   describe('all', function() {
 
-    function testResult(res) {
+    function testResult(obj) {
       var done = this;
-      res.constructor.name.should.eql('Array');
-      res.length.should.eql(13);
+      obj.constructor.name.should.eql('Array');
+      obj.length.should.eql(30);
       done()
     }
 
@@ -64,7 +63,7 @@ describe('Collection', function() {
     function testResult(obj) {
       var done = this;
       obj.constructor.name.should.eql('Element');
-      obj.slug.should.eql('product-3');
+      obj.code.should.eql('T4B13B0');
       done()
     }
 
@@ -96,7 +95,7 @@ describe('Collection', function() {
     function testResult(obj) {
       var done = this;
       obj.constructor.name.should.eql('Element');
-      obj.slug.should.eql('pin-ka');
+      obj.code.should.eql('T24D236');
       done()
     }
 
@@ -137,7 +136,7 @@ describe('Collection', function() {
         times++;
         n.should.eql(times-1);
       }, function after() {
-        times.should.eql(13)
+        times.should.eql(30)
         done()
       })
 
@@ -157,48 +156,36 @@ describe('Collection', function() {
     })
 
     it('it adds a filtering param, and returns the original object', function(done) {
-      var res = coll.where({ slug: 'qwe' })
-      // res.should.eql(coll);
-      res.constructor.name.should.eql('LinkedCollection')
+      var res = coll.where({ status: 'checkout' })
+      res.constructor.name.should.eql('Collection')
 
       res.all().then(function(items) {
         items.constructor.name.should.eql('Array');
-        items.length.should.eql(1);
+        items.length.should.eql(17);
         done()
       })
     })
 
     it('it clears any previous filtering params set', function(done) {
       coll.where({ foo: 'bar' })
-      coll.where({ stock: 0 })
-      coll._params.should.eql({ stock: 0 })
+      coll.where({ status: 'pending' })
+      coll._params.should.eql({ status: 'pending' })
 
       coll.all(function(items) {
         items.constructor.name.should.eql('Array');
-        items.length.should.eql(2);
+        items.length.should.eql(10);
         done()
       })
     })
 
   })
 
-/*
   describe('find', function() {
 
-    before(function() {
-      stub.restore()
-      stub = sinon.stub(client, 'request').callsFake(function(url, params) {
-        return new Promise(function(resolve, reject) {
-          var data = getProductData()
-          resolve(data._embedded.items[0])
-        })
-      })
-    })
-
-    function testResult(res) {
+    function testResult(obj) {
       var done = this;
-      res.constructor.name.should.eql('Element');
-      res.slug.should.eql('product-3');
+      obj.constructor.name.should.eql('Element');
+      obj.code.should.eql('T49AD86');
       done()
     }
 
@@ -206,19 +193,22 @@ describe('Collection', function() {
       (function() { coll.find() }).should.throw('ID required')
     })
 
+    it('doesnt explode if not found', function() {
+      (function() { coll.find('111', function(){ }) }).should.not.throw()
+    })
+
     it('returns a promise if called without a callback', function(done) {
-      var res = coll.find(12)
+      var res = coll.find('93')
       res.constructor.name.should.eql('Promise');
       res.then(testResult.bind(done))
     })
 
     it('doesnt return a promise if callback is passed', function(done) {
-      var res = coll.find(12, testResult.bind(done))
+      var res = coll.find(93, testResult.bind(done))
       should.not.exist(res);
     })
 
   })
-*/
 
 
 })
