@@ -5,12 +5,30 @@ var should = require('should'),
 var rootData = require('./fixtures/root'),
     productData = require('./fixtures/products');
 
+process.on('unhandledRejection', function(reason, p) {
+  console.log('Unhandled Rejection at:', p, 'reason:', reason);
+})
+
 describe('LinkedCollection', function() {
+
+  this.timeout(100)
 
   let root, coll, stub;
   let client = {
     request: function(url, params) {}
   };
+
+  // returns actual params used for filtering, by
+  // removing sort/limit and similar
+  function queryParams(params) {
+    var obj = {};
+    Object.keys(params).map(function(k) {
+      if (['sort', 'limit'].indexOf(k) == -1) {
+        obj[k] = params[k]
+      }
+    })
+    return obj;
+  }
 
   function filterItems(items, params) {
     return items.filter(function(el) {
@@ -29,10 +47,10 @@ describe('LinkedCollection', function() {
     return new Promise(function(resolve, reject) {
       var data = getProductData()
 
-      if (!params || !Object.keys(params).length)
+      if (!params || Object.keys(queryParams(params)).length == 0)
         return resolve(data)
 
-      data._embedded.items = filterItems(data._embedded.items, params);
+      data._embedded.items = filterItems(data._embedded.items, queryParams(params));
       resolve(data);
     })
   }
@@ -68,10 +86,10 @@ describe('LinkedCollection', function() {
 
   describe('first', function() {
 
-    function testResult(res) {
+    function testResult(obj) {
       var done = this;
-      res.constructor.name.should.eql('Element');
-      res.slug.should.eql('product-3');
+      obj.constructor.name.should.eql('Element');
+      obj.slug.should.eql('product-3');
       done()
     }
 
@@ -100,10 +118,10 @@ describe('LinkedCollection', function() {
 
   describe('last', function() {
 
-    function testResult(res) {
+    function testResult(obj) {
       var done = this;
-      res.constructor.name.should.eql('Element');
-      res.slug.should.eql('pin-ka');
+      obj.constructor.name.should.eql('Element');
+      obj.slug.should.eql('pin-ka');
       done()
     }
 
@@ -136,15 +154,19 @@ describe('LinkedCollection', function() {
       (function() { coll.each() }).should.throw('Callback required!')
     })
 
-    it('yields items', function(done) {
+    it('returns nothing and yields items', function(done) {
       var times = 0;
-      coll.each(function(item, n) {
+
+      var res = coll.each(function(item, n) {
         item.constructor.name.should.eql('Element');
         times++;
         n.should.eql(times-1);
+      }, function after() {
+        times.should.eql(13)
+        done()
       })
-      times.should.eql(13)
-      done()
+
+      should.not.exist(res);
     })
 
   })
@@ -152,16 +174,17 @@ describe('LinkedCollection', function() {
   describe('where', function() {
 
     it('explodes if no argument given', function() {
-      (function() { coll.where() }).should.throw('Object expected!')
+      (function() { coll.where() }).should.throw('Object expected, not undefined')
     })
 
     it('explodes if non object given', function() {
-      (function() { coll.where('aaa') }).should.throw('Object expected!')
+      (function() { coll.where('aaa') }).should.throw('Object expected, not string')
     })
 
     it('it adds a filtering param, and returns the original object', function(done) {
       var res = coll.where({ slug: 'qwe' })
-      res.should.eql(coll);
+      // res.should.eql(coll);
+      res.constructor.name.should.eql('LinkedCollection')
 
       res.all().then(function(items) {
         items.constructor.name.should.eql('Array');
