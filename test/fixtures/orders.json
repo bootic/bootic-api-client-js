@@ -1,0 +1,4875 @@
+{
+  "_class": [
+    "results",
+    "orders"
+  ],
+  "_links": {
+    "curies": [
+      {
+        "name": "btc",
+        "href": "https://api.bootic.net/rels/{rel}",
+        "templated": true
+      }
+    ],
+    "self": {
+      "href": "http://localhost:5001/v1/shops/1/orders?distance=5km&page=1&per_page=30&sort=created_on.desc"
+    },
+    "btc:shop": {
+      "href": "http://localhost:5001/v1/shops/1"
+    },
+    "next": {
+      "href": "http://localhost:5001/v1/shops/1/orders?distance=5km&page=2&per_page=30&sort=created_on.desc"
+    },
+    "last": {
+      "href": "http://localhost:5001/v1/shops/1/orders?distance=5km&page=2&per_page=30&sort=created_on.desc"
+    }
+  },
+  "total_items": 51,
+  "per_page": 30,
+  "page": 1,
+  "totals": {
+    "total": 1233678,
+    "mean": 24189.764705882353,
+    "min": 0,
+    "max": 168000
+  },
+  "transitions": {
+    "status": {
+      "checkout": [
+        "checkout",
+        "pending",
+        "invalid"
+      ],
+      "pending": [
+        "pending",
+        "closed",
+        "invalid"
+      ],
+      "invalid": [
+        "invalid",
+        "pending"
+      ],
+      "closed": [
+        "closed",
+        "pending",
+        "invalid",
+        "shipped"
+      ],
+      "shipped": [
+        "shipped",
+        "pending",
+        "invalid",
+        "delivered"
+      ],
+      "delivered": [
+        "delivered",
+        "pending",
+        "invalid"
+      ]
+    }
+  },
+  "_actions": {
+    "search": {
+      "prompt": "Search and filter orders",
+      "method": "GET",
+      "type": "application/json",
+      "href": "http://localhost:5001/v1/shops/1/orders",
+      "fields": [
+        {
+          "name": "page",
+          "prompt": "page number",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "per_page",
+          "prompt": "items per page",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "q",
+          "prompt": "full text search",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "status",
+          "prompt": "status",
+          "value": null,
+          "options": [
+            "checkout",
+            "pending",
+            "invalid",
+            "closed",
+            "shipped",
+            "delivered",
+            "all",
+            "successful"
+          ]
+        },
+        {
+          "name": "code",
+          "prompt": "order code",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "product_id",
+          "prompt": "product ID",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "payment_method",
+          "prompt": "payment method type, ie. webpay, paypal, custom",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "tags",
+          "prompt": "tag names",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "created_on_gte",
+          "prompt": "creation date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "created_on_lte",
+          "prompt": "creation date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "updated_on_gte",
+          "prompt": "update date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "updated_on_lte",
+          "prompt": "update date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "pending_on_gte",
+          "prompt": "pending date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "pending_on_lte",
+          "prompt": "pending date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "closed_on_gte",
+          "prompt": "close date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "closed_on_lte",
+          "prompt": "close date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "shipped_on_gte",
+          "prompt": "shipped date from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "shipped_on_lte",
+          "prompt": "shipped date to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "net_total_gte",
+          "prompt": "net total from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "net_total_lte",
+          "prompt": "net total to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "shipping_total_gte",
+          "prompt": "shipping total from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "shipping_total_lte",
+          "prompt": "shipping total to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "discount_total_gte",
+          "prompt": "discount total from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "discount_total_lte",
+          "prompt": "discount total to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "total_gte",
+          "prompt": "total from",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "total_lte",
+          "prompt": "total to",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "lat_long",
+          "prompt": "comma-separated latitude and longitude",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "distance",
+          "prompt": "radius distance for lat_long search. ex. 5km",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "contact_email",
+          "prompt": "contact email",
+          "value": null,
+          "options": null
+        },
+        {
+          "name": "sort",
+          "prompt": "sort order results",
+          "value": null,
+          "options": [
+            "created_on.asc",
+            "created_on.desc",
+            "updated_on.asc",
+            "updated_on.desc",
+            "pending_on.asc",
+            "pending_on.desc",
+            "closed_on.asc",
+            "closed_on.desc",
+            "shipped_on.asc",
+            "shipped_on.desc",
+            "net_total.asc",
+            "net_total.desc"
+          ]
+        },
+        {
+          "name": "histogram",
+          "prompt": "histogram data",
+          "value": null,
+          "options": [
+            "pending_on"
+          ]
+        }
+      ]
+    }
+  },
+  "_embedded": {
+    "items": [
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T4B13B0"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T4B13B0",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T4B13B0",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T4B13B0",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T4B13B0",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T4B13B0/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=155{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 155,
+        "shop_id": 1,
+        "code": "T4B13B0",
+        "status": "checkout",
+        "net_total": 0,
+        "discount_total": 0,
+        "total": 500,
+        "currency_code": "CLP",
+        "units": 0,
+        "created_on": "2018-02-15T15:59:39Z",
+        "updated_on": "2018-02-15T18:52:00Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 397,
+            "street": "aa",
+            "street_2": "Dept F",
+            "locality_name": "Auquinco",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "562",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "Tomas Pollak",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "2211331",
+            "serg": "",
+            "rrr": ""
+          },
+          "line_items": []
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2FDEE5"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T2FDEE5",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T2FDEE5",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T2FDEE5",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2FDEE5/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=140{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 140,
+        "shop_id": 1,
+        "code": "T2FDEE5",
+        "status": "pending",
+        "net_total": 159998,
+        "discount_total": 4000,
+        "total": 155998,
+        "currency_code": "CLP",
+        "units": 6,
+        "created_on": "2018-02-14T15:02:57Z",
+        "updated_on": "2018-02-14T17:38:32Z",
+        "pending_on": "2018-02-14T17:38:25Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 500,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 600,
+        "tags": [],
+        "payment_info": {
+          "name": "Transferencia bancaria internacional",
+          "type": "international_bank_transfer",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 394,
+            "street": "test 123",
+            "street_2": "Dept F",
+            "locality_name": "Almendro",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "562",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "Tomas Pollak",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "(415) 610-6220",
+            "serg": "",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 33,
+            "name": "Valdivianos",
+            "discount": 3333,
+            "discount_type": "$",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 4000,
+              "description": "Valdivianos"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/54"
+                }
+              },
+              "product_id": 54,
+              "product_title": "Pin-KA",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 33333,
+              "units": 6,
+              "product_weight_in_grams": 100,
+              "weight_in_grams": 600,
+              "variant_id": 113,
+              "variant_title": "Pin-KA",
+              "variant_sku": null,
+              "requested_units": 6,
+              "discount_total": 40000,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 40000,
+                    "description": "(20%) Test3"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/158-pink.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/158-pink.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/158-pink.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/158-pink.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/158-pink.jpg"
+                    }
+                  },
+                  "file_name": "pink.jpg",
+                  "title": "pink.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TEC4EA5"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TEC4EA5",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TEC4EA5",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TEC4EA5",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TEC4EA5",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TEC4EA5/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=139{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 139,
+        "shop_id": 1,
+        "code": "TEC4EA5",
+        "status": "checkout",
+        "net_total": 26100,
+        "discount_total": 522,
+        "total": 26078,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2018-02-05T22:54:54Z",
+        "updated_on": "2018-02-12T21:08:06Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 390,
+            "street": "aa 123",
+            "street_2": "",
+            "locality_name": "Alcones",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "22331311",
+            "serg": "",
+            "rrr": "uno"
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 24,
+            "name": "xx",
+            "discount": 2,
+            "discount_type": "%",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 522,
+              "description": "(2%) xx"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": 2900,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 2900,
+                    "description": "(10%) Solo productos de prueba"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF2ED36"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TF2ED36",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TF2ED36",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TF2ED36",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF2ED36/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=137{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 137,
+        "shop_id": 1,
+        "code": "TF2ED36",
+        "status": "pending",
+        "net_total": 29000,
+        "discount_total": 0,
+        "total": 29000,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2018-02-05T17:06:45Z",
+        "updated_on": "2018-02-05T17:35:30Z",
+        "pending_on": "2018-02-05T17:35:30Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 500,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "Khipu",
+          "type": "khipu",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 388,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Arboledas de Pedehue",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "123123",
+            "serg": "",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 28,
+            "name": "Freeping",
+            "discount": 0,
+            "discount_type": "%",
+            "free_shipping": true
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": 0,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T30FFF8"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T30FFF8",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T30FFF8",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T30FFF8",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T30FFF8/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=135{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 135,
+        "shop_id": 1,
+        "code": "T30FFF8",
+        "status": "pending",
+        "net_total": 180,
+        "discount_total": 4,
+        "total": 676,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2018-02-05T15:57:25Z",
+        "updated_on": "2018-02-05T17:03:02Z",
+        "pending_on": "2018-02-05T16:21:05Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 234,
+        "tags": [],
+        "payment_info": {
+          "name": "Khipu",
+          "type": "khipu",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 386,
+            "street": "aa  123",
+            "street_2": "",
+            "locality_name": "Arboledas de Pedehue",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "2213123",
+            "serg": "",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 24,
+            "name": "xx",
+            "discount": 2,
+            "discount_type": "%",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 4,
+              "description": "(2%) xx"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/62"
+                }
+              },
+              "product_id": 62,
+              "product_title": "Test product",
+              "unit_price": 200,
+              "units": 1,
+              "product_weight_in_grams": 234,
+              "weight_in_grams": 234,
+              "variant_id": 129,
+              "variant_title": "unox - 3",
+              "variant_sku": "aaabbb",
+              "requested_units": 1,
+              "discount_total": 20,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 20,
+                    "description": "(10%) Solo productos de prueba"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/178-IMG_3962.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/178-IMG_3962.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/178-IMG_3962.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/178-IMG_3962.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/178-IMG_3962.jpg"
+                    }
+                  },
+                  "file_name": "IMG_3962.jpg",
+                  "title": "IMG_3962.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF08D07"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TF08D07",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TF08D07",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TF08D07",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF08D07",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF08D07/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=133{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 133,
+        "shop_id": 1,
+        "code": "TF08D07",
+        "status": "checkout",
+        "net_total": 180,
+        "discount_total": 22,
+        "total": 658,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2018-02-01T18:22:20Z",
+        "updated_on": "2018-02-01T20:22:19Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 385,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Alto Ramírez",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "22334455",
+            "serg": "",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 26,
+            "name": "Una nueva promo",
+            "discount": 10,
+            "discount_type": "%",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 4,
+              "description": "(2%) xx"
+            },
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 18,
+              "description": "(10%) Una nueva promo"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/62"
+                }
+              },
+              "product_id": 62,
+              "product_title": "Test product",
+              "unit_price": 200,
+              "units": 1,
+              "product_weight_in_grams": null,
+              "weight_in_grams": 0,
+              "variant_id": 163,
+              "variant_title": "eee - 4",
+              "variant_sku": "sd",
+              "requested_units": 2,
+              "discount_total": 20,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 20,
+                    "description": "(10%) Solo productos de prueba"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/178-IMG_3962.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/178-IMG_3962.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/178-IMG_3962.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/178-IMG_3962.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/178-IMG_3962.jpg"
+                    }
+                  },
+                  "file_name": "IMG_3962.jpg",
+                  "title": "IMG_3962.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T4FDA76"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T4FDA76",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T4FDA76",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T4FDA76",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T4FDA76/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=131{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 131,
+        "shop_id": 1,
+        "code": "T4FDA76",
+        "status": "pending",
+        "net_total": 38180,
+        "discount_total": 4582,
+        "total": 34098,
+        "currency_code": "CLP",
+        "units": 3,
+        "created_on": "2018-02-01T16:08:35Z",
+        "updated_on": "2018-02-01T16:43:00Z",
+        "pending_on": "2018-02-01T16:43:00Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 5000,
+        "tags": [],
+        "payment_info": {
+          "name": "Khipu",
+          "type": "khipu",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 382,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Arboledas de Pedehue",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "22334455",
+            "serg": "2213",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 26,
+            "name": "Una nueva promo",
+            "discount": 10,
+            "discount_type": "%",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 764,
+              "description": "(2%) xx"
+            },
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 3818,
+              "description": "(10%) Una nueva promo"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/56"
+                }
+              },
+              "product_id": 56,
+              "product_title": "Neg-RO",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 0,
+              "units": 1,
+              "product_weight_in_grams": 5000,
+              "weight_in_grams": 5000,
+              "variant_id": 115,
+              "variant_title": "Neg-RO",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/160-black-retro-1.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/160-black-retro-1.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/160-black-retro-1.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/160-black-retro-1.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/160-black-retro-1.jpg"
+                    }
+                  },
+                  "file_name": "black-retro-1.jpg",
+                  "title": "black-retro-1.jpg"
+                }
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/56"
+                }
+              },
+              "product_id": 56,
+              "product_title": "Neg-RO",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 38000,
+              "units": 1,
+              "product_weight_in_grams": null,
+              "weight_in_grams": 0,
+              "variant_id": 161,
+              "variant_title": "XXXX",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/160-black-retro-1.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/160-black-retro-1.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/160-black-retro-1.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/160-black-retro-1.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/160-black-retro-1.jpg"
+                    }
+                  },
+                  "file_name": "black-retro-1.jpg",
+                  "title": "black-retro-1.jpg"
+                }
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/62"
+                }
+              },
+              "product_id": 62,
+              "product_title": "Test product",
+              "unit_price": 200,
+              "units": 1,
+              "product_weight_in_grams": null,
+              "weight_in_grams": 0,
+              "variant_id": 164,
+              "variant_title": "rrr - 4",
+              "variant_sku": "wer",
+              "requested_units": 2,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 20,
+                    "description": "(10%) Solo productos de prueba"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/178-IMG_3962.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/178-IMG_3962.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/178-IMG_3962.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/178-IMG_3962.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/178-IMG_3962.jpg"
+                    }
+                  },
+                  "file_name": "IMG_3962.jpg",
+                  "title": "IMG_3962.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T604BB6"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T604BB6",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T604BB6",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T604BB6",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T604BB6",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T604BB6/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=130{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 130,
+        "shop_id": 1,
+        "code": "T604BB6",
+        "status": "checkout",
+        "net_total": 180,
+        "discount_total": 22,
+        "total": 658,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2018-01-31T22:48:11Z",
+        "updated_on": "2018-02-01T02:16:03Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 381,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Balsas",
+            "region_name": "Libertador General Bernardo O\\'Higgins",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497044,
+            "name": "Test User",
+            "email": "test@bootlog.org",
+            "phone_number": "22334455",
+            "serg": "",
+            "rrr": ""
+          },
+          "promotion": {
+            "_class": [
+              "promotion"
+            ],
+            "id": 26,
+            "name": "Una nueva promo",
+            "discount": 10,
+            "discount_type": "%",
+            "free_shipping": false
+          },
+          "discounts": [
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 4,
+              "description": "xx (2%)"
+            },
+            {
+              "_class": [
+                "discount",
+                "charge"
+              ],
+              "amount": 18,
+              "description": "Una nueva promo (10%)"
+            }
+          ],
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/62"
+                }
+              },
+              "product_id": 62,
+              "product_title": "Test product",
+              "unit_price": 200,
+              "units": 1,
+              "product_weight_in_grams": null,
+              "weight_in_grams": 0,
+              "variant_id": 163,
+              "variant_title": "eee - 4",
+              "variant_sku": "sd",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [
+                  {
+                    "_class": [
+                      "discount",
+                      "charge"
+                    ],
+                    "amount": 20,
+                    "description": "Solo productos de prueba (10%)"
+                  }
+                ],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/178-IMG_3962.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/178-IMG_3962.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/178-IMG_3962.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/178-IMG_3962.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/178-IMG_3962.jpg"
+                    }
+                  },
+                  "file_name": "IMG_3962.jpg",
+                  "title": "IMG_3962.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2F0CF5"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T2F0CF5",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T2F0CF5",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T2F0CF5",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2F0CF5",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2F0CF5/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=120{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 120,
+        "shop_id": 1,
+        "code": "T2F0CF5",
+        "status": "checkout",
+        "net_total": 29000,
+        "discount_total": 250,
+        "total": 28750,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-11-30T15:30:47Z",
+        "updated_on": "2017-11-30T15:44:48Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "no_shipping",
+          "fulfillment_method": "no_shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497043,
+            "name": "asd 123",
+            "email": "asd@asd.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "dddad",
+            "_local_pickup_person_id": "234234",
+            "_local_pickup_branch_id": "6"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T612479"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T612479",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T612479",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T612479",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T612479",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T612479/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=114{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 114,
+        "shop_id": 1,
+        "code": "T612479",
+        "status": "checkout",
+        "net_total": 29000,
+        "discount_total": 250,
+        "total": 29250,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-11-22T12:40:23Z",
+        "updated_on": "2017-11-22T12:49:51Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 374,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Barquito",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497042,
+            "name": "asd",
+            "email": "xqrw@asd.com",
+            "phone_number": "123123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T44CD02"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T44CD02/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=112{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 112,
+        "shop_id": 1,
+        "code": "T44CD02",
+        "status": "invalid",
+        "net_total": 29000,
+        "discount_total": 0,
+        "total": 29000,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-11-22T12:37:26Z",
+        "updated_on": "2017-12-06T13:57:02Z",
+        "pending_on": "2017-11-22T12:39:27Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 500,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [
+          "xxx",
+          "rrrr",
+          "awefawefawef"
+        ],
+        "payment_info": {
+          "name": "Transferencia bancaria local",
+          "type": "local_bank_transfer",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 368,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Barquito",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497040,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TB9D193"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TB9D193",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TB9D193",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TB9D193",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TB9D193",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TB9D193/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=111{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 111,
+        "shop_id": 1,
+        "code": "TB9D193",
+        "status": "checkout",
+        "net_total": 0,
+        "discount_total": 0,
+        "total": 500,
+        "currency_code": "CLP",
+        "units": 0,
+        "created_on": "2017-11-21T14:59:31Z",
+        "updated_on": "2017-11-21T15:24:28Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 362,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Barquito",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497040,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": []
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T773866"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T773866",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T773866",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T773866",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T773866",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T773866/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=109{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 109,
+        "shop_id": 1,
+        "code": "T773866",
+        "status": "checkout",
+        "net_total": 64000,
+        "discount_total": 250,
+        "total": 64250,
+        "currency_code": "CLP",
+        "units": 2,
+        "created_on": "2017-11-16T17:10:09Z",
+        "updated_on": "2017-11-17T14:05:43Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 361,
+            "street": "asd 123",
+            "street_2": "Dept F",
+            "locality_name": "Barquito",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "562",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497040,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/55"
+                }
+              },
+              "product_id": 55,
+              "product_title": "Game-ON",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 29000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 114,
+              "variant_title": "Game-ON",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/159-black-gamer.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/159-black-gamer.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/159-black-gamer.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/159-black-gamer.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/159-black-gamer.jpg"
+                    }
+                  },
+                  "file_name": "black-gamer.jpg",
+                  "title": "black-gamer.jpg"
+                }
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/56"
+                }
+              },
+              "product_id": 56,
+              "product_title": "Neg-RO",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 35000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 115,
+              "variant_title": "Neg-RO",
+              "variant_sku": null,
+              "requested_units": 2,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/160-black-retro-1.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/160-black-retro-1.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/160-black-retro-1.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/160-black-retro-1.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/160-black-retro-1.jpg"
+                    }
+                  },
+                  "file_name": "black-retro-1.jpg",
+                  "title": "black-retro-1.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T39D130"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T39D130",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T39D130",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T39D130",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T39D130",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T39D130/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=107{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 107,
+        "shop_id": 1,
+        "code": "T39D130",
+        "status": "checkout",
+        "net_total": 35000,
+        "discount_total": 1750,
+        "total": 33750,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-11-07T15:15:05Z",
+        "updated_on": "2017-11-07T16:52:49Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Despacho normal (3-5 días)",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 356,
+            "street": "Foo 123",
+            "street_2": "Dept F",
+            "locality_name": "Barquito",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "562",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "Tomas Pollak",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "(415) 610-6220",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/56"
+                }
+              },
+              "product_id": 56,
+              "product_title": "Neg-RO",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 35000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 115,
+              "variant_title": "Neg-RO",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/160-black-retro-1.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/160-black-retro-1.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/160-black-retro-1.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/160-black-retro-1.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/160-black-retro-1.jpg"
+                    }
+                  },
+                  "file_name": "black-retro-1.jpg",
+                  "title": "black-retro-1.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T361628"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T361628/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=106{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 106,
+        "shop_id": 1,
+        "code": "T361628",
+        "status": "shipped",
+        "net_total": 83000,
+        "discount_total": 4150,
+        "total": 79350,
+        "currency_code": "CLP",
+        "units": 2,
+        "created_on": "2017-11-03T01:27:40Z",
+        "updated_on": "2017-12-06T21:28:16Z",
+        "pending_on": "2017-11-03T01:27:59Z",
+        "closed_on": "2017-11-03T01:28:42Z",
+        "shipped_on": "2017-12-06T21:28:16Z",
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": "qwdqwd",
+        "courier_name": "qwdqwd",
+        "shipped_email_sent": false,
+        "closed_email_sent": true,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": "qwdqwd",
+          "courier_name": "qwdqwd"
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "shipped",
+          "delivered"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 353,
+            "street": "asd 123",
+            "street_2": "Dept F",
+            "locality_name": "Agua Dulce",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "562",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "Tomas Pollak",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "(415) 610-6220",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/57"
+                }
+              },
+              "product_id": 57,
+              "product_title": "Blan-CO",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 35000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 116,
+              "variant_title": "Blan-CO",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/162-white-big-1.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/162-white-big-1.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/162-white-big-1.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/162-white-big-1.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/162-white-big-1.jpg"
+                    }
+                  },
+                  "file_name": "white-big-1.jpg",
+                  "title": "white-big-1.jpg"
+                }
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/58"
+                }
+              },
+              "product_id": 58,
+              "product_title": "Pro-TONE",
+              "product_type_name": "Audífonos",
+              "product_type_id": 9,
+              "unit_price": 48000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 117,
+              "variant_title": "Pro-TONE",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": [],
+                "image": {
+                  "_class": [
+                    "image",
+                    "asset"
+                  ],
+                  "_links": {
+                    "thumbnail": {
+                      "href": "/1/thumbnail/165-black-pro.jpg"
+                    },
+                    "small": {
+                      "href": "/1/small/165-black-pro.jpg"
+                    },
+                    "medium": {
+                      "href": "/1/medium/165-black-pro.jpg"
+                    },
+                    "large": {
+                      "href": "/1/large/165-black-pro.jpg"
+                    },
+                    "original": {
+                      "href": "/1/original/165-black-pro.jpg"
+                    }
+                  },
+                  "file_name": "black-pro.jpg",
+                  "title": "black-pro.jpg"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T49AD86"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T49AD86",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T49AD86",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T49AD86",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T49AD86/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=93{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 93,
+        "shop_id": 1,
+        "code": "T49AD86",
+        "status": "pending",
+        "net_total": 18000,
+        "discount_total": 900,
+        "total": 17100,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-09-08T17:47:12Z",
+        "updated_on": "2017-09-08T17:47:41Z",
+        "pending_on": "2017-09-08T17:47:41Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "local_pickup",
+          "fulfillment_method": "local_pickup",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 497040,
+            "name": "asd 123",
+            "email": "perico@test.com",
+            "phone_number": "123123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "Foobar 123",
+            "_local_pickup_person_id": "123123",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/17"
+                }
+              },
+              "product_id": 17,
+              "product_title": "Blan-KITOS",
+              "unit_price": 18000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 70,
+              "variant_title": "Blan-KITOS",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC969F8"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TC969F8",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TC969F8",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TC969F8",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC969F8",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC969F8/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=86{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 86,
+        "shop_id": 1,
+        "code": "TC969F8",
+        "status": "checkout",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-31T19:55:02Z",
+        "updated_on": "2017-07-31T19:56:46Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 320,
+            "street": "O'Higgins 100",
+            "street_2": "",
+            "locality_name": "Copiapó",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123456787",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T88B9E7"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T88B9E7",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T88B9E7",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T88B9E7",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T88B9E7",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T88B9E7/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=85{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 85,
+        "shop_id": 1,
+        "code": "T88B9E7",
+        "status": "checkout",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-31T17:26:12Z",
+        "updated_on": "2017-08-01T22:13:31Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 352,
+            "street": "Baaa 1234",
+            "street_2": "",
+            "locality_name": "Barrabas",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "Tomás Pollak",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "3213123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2",
+            "_local_pickup_person_name": "asd ",
+            "_local_pickup_person_id": "123"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF49DA3"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TF49DA3",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TF49DA3",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TF49DA3",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TF49DA3/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=83{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 83,
+        "shop_id": 1,
+        "code": "TF49DA3",
+        "status": "pending",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-31T17:19:56Z",
+        "updated_on": "2017-08-18T20:03:02Z",
+        "pending_on": "2017-07-31T17:26:06Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [
+          "foo",
+          "bar"
+        ],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "local_pickup",
+          "fulfillment_method": "local_pickup",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 293,
+            "street": "123",
+            "street_2": "",
+            "locality_name": "Chanchoquín",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123",
+            "indicaciones_adicionales": "",
+            "la_direccion_corresponde_a_una_sucursal_de_chile_express": "0",
+            "rut": "12.919.208-9",
+            "_local_pickup_person_name": "Carla chacon",
+            "_local_pickup_person_id": "129192089",
+            "_local_pickup_branch_id": "11"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T11F80D"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T11F80D",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T11F80D",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T11F80D",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T11F80D/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=81{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 81,
+        "shop_id": 1,
+        "code": "T11F80D",
+        "status": "pending",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-31T17:13:58Z",
+        "updated_on": "2017-07-31T17:19:38Z",
+        "pending_on": "2017-07-31T17:19:38Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [
+          "foo",
+          "bar"
+        ],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 290,
+            "street": "O'Higgins 100",
+            "street_2": "",
+            "locality_name": "Copiapó",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T57BC73"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T57BC73",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T57BC73",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T57BC73",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T57BC73",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T57BC73/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=80{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 80,
+        "shop_id": 1,
+        "code": "T57BC73",
+        "status": "checkout",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 80,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-27T00:02:57Z",
+        "updated_on": "2017-07-27T00:08:58Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "local_pickup",
+          "fulfillment_method": "local_pickup",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 8,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "xx",
+            "_local_pickup_person_id": "ww",
+            "_local_pickup_branch_id": "2"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T6983D3"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T6983D3",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T6983D3",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T6983D3",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T6983D3/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=78{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 78,
+        "shop_id": 1,
+        "code": "T6983D3",
+        "status": "pending",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 80,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-07-26T23:41:41Z",
+        "updated_on": "2017-09-08T17:15:28Z",
+        "pending_on": "2017-07-26T23:52:32Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "local_pickup",
+          "fulfillment_method": "local_pickup",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 283,
+            "street": "Foo 123",
+            "street_2": "",
+            "locality_name": "Bańos",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 11,
+            "name": "Test",
+            "email": "tomaspollak@gmail.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_branch_id": "2",
+            "_local_pickup_person_name": "xx",
+            "_local_pickup_person_id": "aa"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": "xxxxx",
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC4E55A"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TC4E55A",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TC4E55A",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TC4E55A",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC4E55A",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TC4E55A/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=75{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 75,
+        "shop_id": 1,
+        "code": "TC4E55A",
+        "status": "checkout",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 80,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-04-24T17:51:19Z",
+        "updated_on": "2017-04-24T18:18:46Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 500,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 269,
+            "street": "asdxx 123",
+            "street_2": "",
+            "locality_name": "Berraco",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123",
+            "_local_pickup_person_name": "",
+            "_local_pickup_person_id": ""
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T408641"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T408641",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T408641",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T408641",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T408641",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T408641/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=74{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 74,
+        "shop_id": 1,
+        "code": "T408641",
+        "status": "checkout",
+        "net_total": 168000,
+        "discount_total": 8400,
+        "total": 160100,
+        "currency_code": "CLP",
+        "units": 9,
+        "created_on": "2017-04-11T19:58:28Z",
+        "updated_on": "2017-04-12T00:35:35Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 261,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Barquitos",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 8,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "",
+            "_local_pickup_person_id": ""
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/5"
+                }
+              },
+              "product_id": 5,
+              "product_title": "Pro-TONE",
+              "unit_price": 24000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 5,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/6"
+                }
+              },
+              "product_id": 6,
+              "product_title": "Blan-KITOS",
+              "unit_price": 18000,
+              "units": 8,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 6,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 8,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TCB3132"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TCB3132/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=73{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 73,
+        "shop_id": 1,
+        "code": "TCB3132",
+        "status": "shipped",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-04-10T19:54:26Z",
+        "updated_on": "2017-12-29T21:26:01Z",
+        "pending_on": "2017-05-09T23:50:50Z",
+        "closed_on": "2017-07-26T23:36:23Z",
+        "shipped_on": "2017-12-29T21:26:01Z",
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": "99648750692",
+        "courier_name": "Chilexpress",
+        "shipped_email_sent": false,
+        "closed_email_sent": true,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": "99648750692",
+          "courier_name": "Chilexpress"
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "shipped",
+          "delivered"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 260,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Algarrobal",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 8,
+            "name": "Perico Lospalotes",
+            "email": "perico@test.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "",
+            "_local_pickup_person_id": ""
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T920D84"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T920D84",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T920D84",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T920D84",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T920D84",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T920D84/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=71{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 71,
+        "shop_id": 1,
+        "code": "T920D84",
+        "status": "checkout",
+        "net_total": 80,
+        "discount_total": 8,
+        "total": 72,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-04-04T22:48:34Z",
+        "updated_on": "2017-04-04T22:55:39Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 500,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 259,
+            "street": "asd 123",
+            "street_2": "",
+            "locality_name": "Bańos de Berenguela",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 8,
+            "name": "Test",
+            "email": "perico@test.com",
+            "phone_number": "123123",
+            "_user_code": "",
+            "_local_pickup_person_name": "",
+            "_local_pickup_person_id": ""
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TFCD21C"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/TFCD21C",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/TFCD21C",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/TFCD21C",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TFCD21C",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/TFCD21C/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=67{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 67,
+        "shop_id": 1,
+        "code": "TFCD21C",
+        "status": "checkout",
+        "net_total": 54240,
+        "discount_total": 3612,
+        "total": 51128,
+        "currency_code": "CLP",
+        "units": 6,
+        "created_on": "2017-03-17T17:24:05Z",
+        "updated_on": "2017-03-17T23:01:03Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 258,
+            "street": "asd 1234",
+            "street_2": "",
+            "locality_name": "Bańos de Berenguela",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123",
+            "_local_pickup_person_name": "",
+            "_local_pickup_person_id": ""
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/6"
+                }
+              },
+              "product_id": 6,
+              "product_title": "Blan-KITOS",
+              "unit_price": 18000,
+              "units": 3,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 6,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 3,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            },
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 3,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 3,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T7E4A01"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T7E4A01",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T7E4A01",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T7E4A01",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T7E4A01/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=64{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 64,
+        "shop_id": 1,
+        "code": "T7E4A01",
+        "status": "pending",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-03-10T02:29:36Z",
+        "updated_on": "2017-03-20T23:26:17Z",
+        "pending_on": "2017-03-10T02:55:02Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 252,
+            "street": "asd ",
+            "street_2": "",
+            "locality_name": "Bateas",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2D3B2B"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T2D3B2B",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T2D3B2B",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T2D3B2B",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2D3B2B",
+            "method": "put",
+            "title": "Update order attributes"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T2D3B2B/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=62{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 62,
+        "shop_id": 1,
+        "code": "T2D3B2B",
+        "status": "checkout",
+        "net_total": 18000,
+        "discount_total": 900,
+        "total": 17600,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-03-09T22:34:48Z",
+        "updated_on": "2017-03-09T22:35:58Z",
+        "pending_on": null,
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "checkout",
+          "pending",
+          "invalid"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 248,
+            "street": "Baaa 1234",
+            "street_2": "",
+            "locality_name": "Barrabas",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/6"
+                }
+              },
+              "product_id": 6,
+              "product_title": "Blan-KITOS",
+              "unit_price": 18000,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 6,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "_class": [
+          "order"
+        ],
+        "_links": {
+          "self": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T24D236"
+          },
+          "btc:web_checkout": {
+            "href": "https://checkout.bootic.net/orders/T24D236",
+            "type": "text/html",
+            "title": "Web checkout page for this order"
+          },
+          "btc:web": {
+            "href": "https://checkout.bootic.net/orders/T24D236",
+            "type": "text/html",
+            "title": "this link is DEPRECATED"
+          },
+          "btc:web_cart": {
+            "href": "/cart/T24D236",
+            "type": "text/html",
+            "title": "Web cart page to manually edit this order"
+          },
+          "btc:update_order_tracking": {
+            "href": "http://localhost:5001/v1/shops/1/orders/T24D236/tracking",
+            "method": "put",
+            "title": "Update order tracking and status. EXPERIMENTAL."
+          },
+          "btc:events": {
+            "title": "Events for this order",
+            "templated": true,
+            "href": "http://localhost:5001/v1/shops/1/events?item_type=order&item_id=61{&page,per_page,sort,user_id,since,topic,created_on_gte,created_on_lte}"
+          }
+        },
+        "id": 61,
+        "shop_id": 1,
+        "code": "T24D236",
+        "status": "pending",
+        "net_total": 80,
+        "discount_total": 0,
+        "total": 580,
+        "currency_code": "CLP",
+        "units": 1,
+        "created_on": "2017-03-09T22:30:28Z",
+        "updated_on": "2017-03-10T03:06:52Z",
+        "pending_on": "2017-03-10T02:04:27Z",
+        "closed_on": null,
+        "shipped_on": null,
+        "shipping_total": null,
+        "shipping_discount": 0,
+        "shipping_description": "Vía avión",
+        "tracking_code": null,
+        "courier_name": null,
+        "shipped_email_sent": false,
+        "closed_email_sent": false,
+        "total_weight_in_grams": 0,
+        "tags": [],
+        "payment_info": {
+          "name": "",
+          "type": "",
+          "data": {}
+        },
+        "fulfillment": {
+          "method": "shipping",
+          "fulfillment_method": "shipping",
+          "tracking_code": null,
+          "courier_name": null
+        },
+        "allowed_statuses": [
+          "pending",
+          "invalid",
+          "closed"
+        ],
+        "_embedded": {
+          "address": {
+            "_class": [
+              "address"
+            ],
+            "id": 251,
+            "street": "asdd 123",
+            "street_2": "",
+            "locality_name": "Alto del Caimen",
+            "region_name": "Atacama",
+            "country_name": "Chile",
+            "postal_code": "",
+            "country_code": "CL",
+            "lat_long": ""
+          },
+          "contact": {
+            "_class": [
+              "contact"
+            ],
+            "id": 1,
+            "name": "test",
+            "email": "test@test.com",
+            "phone_number": "123123"
+          },
+          "line_items": [
+            {
+              "_class": [
+                "lineItem"
+              ],
+              "_links": {
+                "btc:product": {
+                  "href": "http://localhost:5001/v1/products/7"
+                }
+              },
+              "product_id": 7,
+              "product_title": "Neg-RITOS",
+              "unit_price": 80,
+              "units": 1,
+              "product_weight_in_grams": 0,
+              "weight_in_grams": 0,
+              "variant_id": 7,
+              "variant_title": "Default",
+              "variant_sku": null,
+              "requested_units": 1,
+              "discount_total": null,
+              "_embedded": {
+                "discounts": []
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

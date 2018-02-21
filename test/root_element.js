@@ -1,13 +1,13 @@
-var should = require('should'),
-   Element = require('../lib/elements'),
-  rootData = require('./fixtures/root');
+var should   = require('should'),
+    Elements = require('../lib/elements'),
+    rootData = require('./fixtures/root');
 
 describe('root', function() {
 
   let root;
 
   function loadRoot(client , data) {
-    return Element.root(client, data);
+    return Elements.root(client, data);
   }
 
   describe('initializing', function() {
@@ -51,13 +51,11 @@ describe('root', function() {
 
     it('returns proxied link if found', function() {
       var obj = root.docs;
-      // should(obj).be.a.Object();
       obj.constructor.name.should.eql('LinkedAction')
     })
 
     it('returns embedded collection if found', function() {
       var obj = root.shops;
-      // should(obj).should.be.a.Object();
       obj.constructor.name.should.eql('Collection')
     })
 

@@ -1,48 +1,22 @@
-var should   = require('should'),
-    sinon    = require('sinon'),
-    Elements = require('../lib/elements');
-
-var rootData = require('./fixtures/root'),
-    productData = require('./fixtures/products');
+var sinon      = require('sinon'),
+    should     = require('should'),
+    Elements   = require('../lib/elements'),
+    ordersData = require('./fixtures/orders');
 
 process.on('unhandledRejection', function(reason, p) {
   console.log('Unhandled Rejection at:', p, 'reason:', reason);
 })
 
-describe('LinkedCollection', function() {
+describe('Collection', function() {
 
   this.timeout(100)
 
-  let root, coll, stub;
+  let coll;
   let client = {
-    request: function(url, params) {}
-  };
-
-  // returns actual params used for filtering, by
-  // removing sort/limit and similar
-  function queryParams(params) {
-    var obj = {};
-    Object.keys(params).map(function(k) {
-      if (['sort', 'limit'].indexOf(k) == -1) {
-        obj[k] = params[k]
-      }
-    })
-    return obj;
+    request: function(url, params) { }
   }
 
-  function filterItems(items, params) {
-    return items.filter(function(el) {
-      for (var key in params) {
-        if (el.hasOwnProperty(key) && el[key] == params[key])
-          return true
-      }
-    })
-  }
-
-  function getProductData() {
-    return JSON.parse(JSON.stringify(productData)); // returns a clone
-  }
-
+/*
   var responseFn = function(url, params) {
     return new Promise(function(resolve, reject) {
       var data = getProductData()
@@ -54,12 +28,13 @@ describe('LinkedCollection', function() {
       resolve(data);
     })
   }
+*/
 
   before(function() {
-    stub = sinon.stub(client, 'request').callsFake(responseFn)
-    root = Elements.root(client, rootData);
-    coll = root.all_products;
-    coll.constructor.name.should.eql('LinkedCollection')
+    // stub = sinon.stub(client, 'request').callsFake(responseFn)
+    coll = Elements.embeddedProxy(client, 'orders', ordersData._embedded.items);
+
+    console.log(coll);
   })
 
   describe('all', function() {
@@ -207,7 +182,7 @@ describe('LinkedCollection', function() {
 
   })
 
-
+/*
   describe('find', function() {
 
     before(function() {
@@ -243,5 +218,7 @@ describe('LinkedCollection', function() {
     })
 
   })
+*/
+
 
 })
