@@ -27,18 +27,8 @@ module.exports = function(repl) {
         return cb(null, res)
 
       res.then(function(val) {
-        if (val && typeof val.then == 'function') {
-          console.log('!!!')
-          val.then(function(v) {
-            done(repl, cb, v)
-          })
-        } else {
-          done(repl, cb, val)
-        }
-
+        done(repl, cb, val)
       }, function(err) {
-        console.log('Promise rejected!', err)
-
         repl.outputStream.write('Promise rejected: ')
         cb(err)
 /*
