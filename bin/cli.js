@@ -20,12 +20,16 @@ if (args.h || args.help) {
 
 function run() {
   bootic.auth(args).then(function(root) {
-    global.r = global.bootic = root;
-    var replStart = repl(function(code) { return eval(code) })
-    replStart
-    replStart()
 
-    console.log(replStart.context)
+    global.r = global.bootic = root;
+
+    var replStart = repl(function(code) { return eval(code) })
+    var server = replStart({
+      prompt: 'bootic> ',
+      useColors: true
+    })
+
+    replHistory(server, process.env['NODE_REPL_HISTORY'] || historyFile)
 
   }).catch(function(err) {
     console.log('boom!', err.message.red)
