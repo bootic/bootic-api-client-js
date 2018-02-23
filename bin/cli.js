@@ -2,14 +2,12 @@
 ':' //; exec "$(command -v nodejs || command -v node)" "$0" "$@"
 
 var bootic  = require('..'),
-    repl    = require('repl'),
+    repl    = require('./re-pl'),
     helpers = require('../examples/helpers'),
     colour  = require('colour'),
     args    = helpers.args()
 
-var replSandbox  = require('./repl-sandbox'),
-    replPromises = require('./repl-promises'),
-    replHistory  = require('repl.history'),
+var replHistory  = require('repl.history'),
     historyFile  = require('path').join(process.env.HOME, '.bootic_repl_history')
 
 if (args.h || args.help) {
@@ -20,27 +18,15 @@ if (args.h || args.help) {
   run()
 }
 
-process.on('unhandledRejection', function(reason, p) {
-  console.log('Unhandled Rejection at:', p, 'reason:', reason);
-})
-
-function startRepl(root) {
-  var replServer = repl.start({
-    prompt: "bootic> ",
-    useColors: true
-  })
-
-  replServer.context.r = root
-  replServer.context.c = root
-
-  replHistory(replServer, process.env['NODE_REPL_HISTORY'] || historyFile)
-  //replSandbox(replServer)
-  replPromises(replServer)
-}
-
 function run() {
   bootic.auth(args).then(function(root) {
-    startRepl(root)
+    global.r = global.bootic = root;
+    var replStart = repl(function(code) { return eval(code) })
+    replStart
+    replStart()
+
+    console.log(replStart.context)
+
   }).catch(function(err) {
     console.log('boom!', err.message.red)
     console.log(err.stack)
