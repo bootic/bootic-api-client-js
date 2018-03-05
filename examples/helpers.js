@@ -80,3 +80,12 @@ exports.selectShopFrom = function(list) {
 
   return exports.selectFrom(list, 'subdomain', 'Elige una tienda');
 }
+
+exports.getShop = function(root, subdomain) {
+  if (subdomain)
+    return root.shops.where({ subdomain: subdomain }).first();
+
+  return root.shops.all().then(function(list) {
+    return exports.selectShopFrom(list);
+  })
+}

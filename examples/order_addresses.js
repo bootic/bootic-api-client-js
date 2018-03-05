@@ -22,10 +22,7 @@ process.on('unhandledRejection', function(reason, p) {
 bootic
   .auth(args)
   .then(function(root) {
-    return root.shops.where({ subdomain: 'romano' }).all();
-  })
-  .then(function(list) {
-    return helpers.selectShopFrom(list);
+    return helpers.getShop(root, args.subdomain)
   })
   .then(function(shop) {
     return shop.orders

@@ -40,10 +40,7 @@ var current_shop;
 bootic
   .auth(args)
   .then(function(root) {
-    return root.shops.all();
-  })
-  .then(function(list) {
-    return helpers.selectShopFrom(list);
+    return helpers.getShop(root, args.subdomain)
   })
   .then(function(shop) {
     current_shop = shop;
