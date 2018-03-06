@@ -31,14 +31,14 @@ function init(cb) {
   }
 
   bootic.auth(args).then(function(root) {
-    vars.root = vars.r = root;
+    vars.root = root;
 
     if (!args.subdomain)
       return done()
 
     helpers.getShop(root, args.subdomain).then(function(shop) {
       if (!shop) console.warn('Shop not found: ' + args.subdomain)
-      else vars.shop = vars.s = shop;
+      else vars.shop = shop;
       done()
     })
 
