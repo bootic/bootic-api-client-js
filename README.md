@@ -65,12 +65,12 @@ Starting from the root Element (initialized using the response from the API's `r
 
 This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`). 
 
-## `Element`
+## `Entity`
 -----------------------------
 
-### [Element].get
+### [Entity].get
 
---> Retrieves an element's attributes and related links and embedded items.
+--> Retrieves an entity's attributes and related links and embedded items.
 
     root.account.get(function(account) {
       console.log(account); // 
