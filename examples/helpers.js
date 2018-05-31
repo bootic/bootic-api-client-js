@@ -89,3 +89,29 @@ exports.getShop = function(root, subdomain) {
     return exports.selectShopFrom(list);
   })
 }
+
+var colors = {
+  light_cyan:   '1;36', // debug
+  white:        '1;37', // info
+  yellow:       '1;33', // notice
+  yellow_two:   '1;33', // warn
+  light_red:    '1;31', // error
+  light_purple: '1;35', // critical
+  light_gray:   '37',
+  gray:         '90',
+  black:        '30',
+  dark_gray:    '1;30',
+  red:          '31',
+  green:        '32',
+  light_green:  '1;32',
+  brown:        '33',
+  blue:         '34',
+  purple:       '35',
+  cyan:         '36',
+  bold:         '1'
+};
+
+exports.colorize = function(str, color) {
+  if (!str || str == '') return '';
+  return color ? ['\033[', colors[color], 'm', str, '\033[0m'].join('') : str;
+};

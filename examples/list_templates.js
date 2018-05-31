@@ -19,7 +19,7 @@ process.on('unhandledRejection', function(reason, p) {
 bootic
   .auth(args)
   .then(function(root) {
-    return helpers.getShop(root, args.subdomain)
+    return helpers.getShop(root, args.shop || args.subdomain)
   })
   .then(function(shop) {
     return shop.themes.get()

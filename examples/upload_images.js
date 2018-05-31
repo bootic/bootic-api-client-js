@@ -22,7 +22,7 @@ var current_shop;
 bootic
   .auth(args)
   .then(function(root) {
-    return helpers.getShop(root, args.subdomain)
+    return helpers.getShop(root, args.shop || args.subdomain)
   })
   .then(function(shop) {
     current_shop = shop;
