@@ -1,6 +1,6 @@
 var sinon      = require('sinon'),
     should     = require('should'),
-    Elements   = require('../lib/elements'),
+    Entities   = require('../lib/entities'),
     ordersData = require('./fixtures/orders');
 
 process.on('unhandledRejection', function(reason, p) {
@@ -32,7 +32,7 @@ describe('Collection', function() {
 
   before(function() {
     // stub = sinon.stub(client, 'request').callsFake(responseFn)
-    coll = Elements.embeddedProxy(client, 'orders', ordersData._embedded.items);
+    coll = Entities.embeddedProxy(client, 'orders', ordersData._embedded.items);
     // console.log(coll);
   })
 
@@ -62,7 +62,7 @@ describe('Collection', function() {
 
     function testResult(obj) {
       var done = this;
-      obj.constructor.name.should.eql('Element');
+      obj.constructor.name.should.eql('Entity');
       obj.code.should.eql('T4B13B0');
       done()
     }
@@ -79,9 +79,9 @@ describe('Collection', function() {
     })
 
 /*
-    it('supports proxying to virtual elements or collections', function() {
+    it('supports proxying to virtual Entities or collections', function() {
       var vel = coll.first.something;
-      vel.constructor.name.should.eql('VirtualElement');
+      vel.constructor.name.should.eql('VirtualEntity');
 
       var vcol = coll.first.images;
       vcol.constructor.name.should.eql('VirtualCollection');
@@ -94,7 +94,7 @@ describe('Collection', function() {
 
     function testResult(obj) {
       var done = this;
-      obj.constructor.name.should.eql('Element');
+      obj.constructor.name.should.eql('Entity');
       obj.code.should.eql('T24D236');
       done()
     }
@@ -111,9 +111,9 @@ describe('Collection', function() {
     })
 
 /*
-    it('supports proxying to virtual elements or collections', function() {
+    it('supports proxying to virtual Entities or collections', function() {
       var vel = coll.last.something;
-      vel.constructor.name.should.eql('VirtualElement');
+      vel.constructor.name.should.eql('VirtualEntity');
 
       var vcol = coll.last.images;
       vcol.constructor.name.should.eql('VirtualCollection');
@@ -132,7 +132,7 @@ describe('Collection', function() {
       var times = 0;
 
       var res = coll.each(function(item, n) {
-        item.constructor.name.should.eql('Element');
+        item.constructor.name.should.eql('Entity');
         times++;
         n.should.eql(times-1);
       }, function after() {
@@ -184,7 +184,7 @@ describe('Collection', function() {
 
     function testResult(obj) {
       var done = this;
-      obj.constructor.name.should.eql('Element');
+      obj.constructor.name.should.eql('Entity');
       obj.code.should.eql('T49AD86');
       done()
     }

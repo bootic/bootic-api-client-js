@@ -1,6 +1,6 @@
 var should   = require('should'),
     sinon    = require('sinon'),
-    Elements = require('../lib/elements');
+    Entities = require('../lib/entities');
 
 var rootData = require('./fixtures/root'),
     productData = require('./fixtures/products');
@@ -57,7 +57,7 @@ describe('LinkedCollection', function() {
 
   before(function() {
     stub = sinon.stub(client, 'request').callsFake(responseFn)
-    root = Elements.root(client, rootData);
+    root = Entities.root(client, rootData);
     coll = root.all_products;
     coll.constructor.name.should.eql('LinkedCollection')
   })
@@ -88,7 +88,7 @@ describe('LinkedCollection', function() {
 
     function testResult(obj) {
       var done = this;
-      obj.constructor.name.should.eql('Element');
+      obj.constructor.name.should.eql('Entity');
       obj.slug.should.eql('product-3');
       done()
     }
@@ -105,9 +105,9 @@ describe('LinkedCollection', function() {
     })
 
 /*
-    it('supports proxying to virtual elements or collections', function() {
+    it('supports proxying to virtual Entities or collections', function() {
       var vel = coll.first.something;
-      vel.constructor.name.should.eql('VirtualElement');
+      vel.constructor.name.should.eql('VirtualEntity');
 
       var vcol = coll.first.images;
       vcol.constructor.name.should.eql('VirtualCollection');
@@ -120,7 +120,7 @@ describe('LinkedCollection', function() {
 
     function testResult(obj) {
       var done = this;
-      obj.constructor.name.should.eql('Element');
+      obj.constructor.name.should.eql('Entity');
       obj.slug.should.eql('pin-ka');
       done()
     }
@@ -137,9 +137,9 @@ describe('LinkedCollection', function() {
     })
 
 /*
-    it('supports proxying to virtual elements or collections', function() {
+    it('supports proxying to virtual Entities or collections', function() {
       var vel = coll.last.something;
-      vel.constructor.name.should.eql('VirtualElement');
+      vel.constructor.name.should.eql('VirtualEntity');
 
       var vcol = coll.last.images;
       vcol.constructor.name.should.eql('VirtualCollection');
@@ -158,7 +158,7 @@ describe('LinkedCollection', function() {
       var times = 0;
 
       var res = coll.each(function(item, n) {
-        item.constructor.name.should.eql('Element');
+        item.constructor.name.should.eql('Entity');
         times++;
         n.should.eql(times-1);
       }, function after() {
@@ -222,7 +222,7 @@ describe('LinkedCollection', function() {
 
     function testResult(res) {
       var done = this;
-      res.constructor.name.should.eql('Element');
+      res.constructor.name.should.eql('Entity');
       res.slug.should.eql('product-3');
       done()
     }

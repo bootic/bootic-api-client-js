@@ -1,5 +1,5 @@
 var should   = require('should'),
-    Elements = require('../lib/elements'),
+    Entities = require('../lib/entities'),
     rootData = require('./fixtures/root');
 
 describe('root', function() {
@@ -7,7 +7,7 @@ describe('root', function() {
   let root;
 
   function loadRoot(client , data) {
-    return Elements.root(client, data);
+    return Entities.root(client, data);
   }
 
   describe('initializing', function() {
@@ -42,7 +42,7 @@ describe('root', function() {
 
     // pending
     it('throws if not found'); /* function() {
-      (function() { root.foobar }).should.throw('foobar not found in Element')
+      (function() { root.foobar }).should.throw('foobar not found in Entity')
     }) */
 
     it('proxies to attribute if found', function() {
