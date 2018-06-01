@@ -78,8 +78,8 @@ var columns =[
 */
 
 
-if (!args.token && !args.clientId && !productId) {
-  helpers.usage('product_history.js', '[productId]');
+if (!args.token && !args.clientId) {
+  helpers.usage('products_csv.js');
 }
 
 function flatten(arr) {
