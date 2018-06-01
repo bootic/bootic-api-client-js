@@ -17,6 +17,7 @@ var columns = [
   'title',
   'product_type',
   'vendor',
+  'weight_in_grams',
   'price',
   'price_comparison',
   'stock',

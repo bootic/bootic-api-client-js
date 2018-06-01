@@ -7,7 +7,7 @@ if (!args.token && !args.clientId) {
   helpers.usage('create_products.js', '[order_status]');
 }
 
-const product_info = {
+var product_info = {
   model: {
     message: 'Nombre del producto (e.g. iPhone 12)'
   },
