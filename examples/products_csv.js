@@ -113,7 +113,7 @@ function buildCSV(cols, firstPage, done) {
   var res, csv = cols.join(columnSeparator) + lineSeparator;
 
   function fetchDesc(product, cb) {
-    console.log(' -- Fetching desc for product', product.slug)
+    console.log(' -> Fetching desc for product', product.slug)
     product._client.request(product._links['self'], {}).then(function(res) {
       cb(res.description);
     })
@@ -121,11 +121,10 @@ function buildCSV(cols, firstPage, done) {
 
   function buildRows(product, cb) {
     fetchDesc(product, function(desc) {
+      // prepare product data
       product.description     = cleanDescription(desc);
       product.product_type    = product.type.name;
-      product.collection_list = product.collections.map(function(col) {
-        return col.title;
-      }).join(' / ')
+      product.collection_list = product.collections.map(function(c) { return c.title }).join(' / ')
 
       var rows = product.variants.map(function(variant) {
         return cols.map(function(key) {
@@ -150,7 +149,7 @@ function buildCSV(cols, firstPage, done) {
     console.log('== Processing batch of ' + arr.length);
 
     function appendRows(rows) {
-      // console.log('got rows', rows);
+      // console.log('Got rows', rows);
       csv += flatten(rows).join(lineSeparator) + lineSeparator;
       --working;
       nextProduct()
