@@ -1,8 +1,6 @@
 var fs       = require('fs'),
     bootic   = require('../'),
     helpers  = require('./helpers'),
-    colorize = helpers.colorize,
-    inspect  = require('util').inspect,
     args     = helpers.args();
 
 var concurrency = 5,
