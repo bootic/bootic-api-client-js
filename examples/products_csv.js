@@ -6,7 +6,9 @@ var fs       = require('fs'),
 var concurrency = 5,
     firstPageOnly = false;
 
-var perPage = 60,
+var query = { status: "all" };
+
+var perPage = 50,
     csvOutput = '',
     lineSeparator = '\r\n',
     columnSeparator = ',';
@@ -105,9 +107,18 @@ function decodeEntities(str) {
 }
 
 function cleanDescription(desc) {
+  if (!desc || desc == '') return '';
+
   // remove HTML and ensure no line separators in betweenn
   var clean = desc.replace(/<\/?[^>]*>/g, '').replace(/\r\n/g, '\n');
   return wrapInQuotes(decodeEntities(clean));
+}
+
+function quoteIfNeeded(str) {
+  if (~str.indexOf('"'))
+    return wrapInQuotes(str);
+  else
+    return str;
 }
 
 function buildCSV(cols, firstPage, done) {
@@ -124,6 +135,7 @@ function buildCSV(cols, firstPage, done) {
     fetchDesc(product, function(desc) {
       // prepare product data
       product.description     = cleanDescription(desc);
+      product.title           = quoteIfNeeded(product.title);
       product.product_type    = product.type.name;
       product.collection_list = product.collections.map(function(c) { return c.title }).join(' / ')
 
@@ -150,9 +162,10 @@ function buildCSV(cols, firstPage, done) {
     console.log('== Processing batch of ' + arr.length);
 
     function appendRows(rows) {
-      // console.log('Got rows', rows);
-      csv += flatten(rows).join(lineSeparator) + lineSeparator;
       --working;
+      console.log('Got ' + rows.length + ' rows, ' + working + ' working');
+
+      csv += rows.join(lineSeparator) + lineSeparator;
       nextProduct()
     }
 
@@ -176,11 +189,19 @@ function buildCSV(cols, firstPage, done) {
   }
 
   processBatch(firstPage);
+
+  process.on('SIGINT', function() {
+    console.log('Interrupted. Saving current contents anyway.');
+    fs.writeFileSync('out.csv', csv)
+    process.exit()
+  })
 }
 
 process.on('unhandledRejection', function(reason, p) {
   console.log('Unhandled Rejection at:', p, 'reason:', reason);
 })
+
+
 
 var current_shop;
 
@@ -194,7 +215,7 @@ bootic
       throw new Error('Shop not found: ' + (args.shop || args.subdomain))
 
     current_shop = shop;
-    return shop.products.limit(perPage).all()
+    return shop.products.where(query).limit(perPage).all()
   })
   .then(function(productList) {
     buildCSV(columns, productList, function(out) {
