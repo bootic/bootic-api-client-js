@@ -14,7 +14,7 @@ var replHistory  = require('repl.history'),
 if (args.h || args.help) {
   helpers.usage('cli.js')
 } else if (!args.token && !args.clientId) {
-  helpers.getConfig(args, run)
+  helpers.getConfig(args, function() { init(start_repl) })
 } else {
   init(start_repl)
 }
