@@ -39,7 +39,7 @@ function showChanges(obj) {
 
 function listEvents(events) {
   events.reverse().filter(function(ev) {
-    return true; // return ev.scope_id == 452393
+    return !variantId || String(ev.scope_id) == String(variantId);
   }).forEach(function(ev) {
     if (!showOnly || ev.changes[showOnly]) {
       printRow(ev);
