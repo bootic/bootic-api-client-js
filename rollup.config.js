@@ -96,8 +96,8 @@ if (fs.existsSync(publicPath)) {
 
 // second argument is name of variable (global.BooticClient)
 var config = [
-  getConfig('index.js', 'BooticApi', { outputFile: 'bootic_api.js' }),
-  getConfig('index.js', 'BooticApi', { outputFile: 'bootic_api.min.js', uglify: true })
+  getConfig('index.js', 'Bootic', { outputFile: 'bootic.js' }),
+  getConfig('index.js', 'Bootic', { outputFile: 'bootic.min.js', uglify: true })
 ];
 
 export default config;
