@@ -45,78 +45,88 @@ bootic
     })
 ```
 
-## Install
+# API
+
+`.auth(strategy, opts)`
+
+Initializes the client with the given options and `strategy` provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials.
+
+Options:
+
+ - `accessToken`: Required for `bearer` and `authorized` strategies.
+ - `clientId`: For `credentials` and `authorized` strategies.
+ - `clientSecret`: Same as above.
+ - `rootUrl`: To use an alternate endpoint for the API root.
+ - `strategy`: Yes, you can also pass it as an option.
+
+# Install
 
     npm install -g bootic (or yarn add)
 
-## Authentication
+# Using the client
 
-In order to access the API your need to create an application or enable the developer sandbox at [auth.bootic.net](https://auth.bootic.net). 
+Starting from the root Element (initialized using the response from the API's `rootUrl`), an Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
 
-Once you've done so, you initialize the client by calling:
+This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`). 
 
-`.auth(strategy, options)`
+## `Entity`
+-----------------------------
 
-Which initializes the client with the given `options` and `strategy` provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials. For example:
+### [Entity].get
 
-`.auth('bearer', { accessToken: 'aabbcc...xxyyzz' })`
+--> Retrieves an entity's attributes and related links and embedded items.
 
-Or simply (if using the credentials strategy):
-
-`.auth({ clientId: '123abc...', clientSecret: 'zxy321...' })`
-
-The available options are:
-
- - `accessToken`: Required for `bearer` and `authorized` strategies. You can generate temporary tokens by enabling the [developer sandbox](https://auth.bootic.net/dev/sandbox).
- - `clientId`: For `credentials` and `authorized` strategies. You need to [create a Bootic OAuth2 app](https://auth.bootic.net/dev/apps) to get this.
- - `clientSecret`: Same as above.
- - `rootUrl`: To use an alternate endpoint for the API root. You probably won't use this.
- - `strategy`: Yes, you can also pass it as an option. Not required.
-
-For a detailed description about the supported OAuth2 strategies, please check the [Authentication section](https://api.bootic.net/api/authentication/) from our API documentation.
-
-## Using the client
-
-Once authorized, you start from the root Element (initialized using the response from the API's `rootUrl`), which contains the entry points for the different available APIs for your account, as well as embedded data (auth and account information, linked shops, etc). You can then access this data or endpoints as properties or methods for the promise's returned object. For instance:
-
-```
-bootic
-  .auth('bearer', { accessToken: 'aabbcc...xxyyzz' })
-  .then(function(root) {
-    // root contains the API's entry points and embedded data for your account and token
-    console.log(root.account.status)
-    root.products.find(1234).then(function(product) {  
-      // product contains the product's data and available/related actions
-      // in this case we'll call the `update` action that will internally perform a PATCH request
-      product.update(online_stock: 10).then(function() { 
-        // yay!
-      })
+    root.account.get(function(account) {
+      console.log(account); // 
     })
-  })
-```
 
-An easy way to visualize the available actions and data for each endpoint under the Bootic API is by using our HAL browser at [api.bootic.net/browser/](https://api.bootic.net/browser/).
 
-## Client entities (Element, Collection, etc)
+## `Collection`
 
-An Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
+### [Collection].where(query)
 
-This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`).
+--> Requests a link with params. Returns Collection. 
 
-## CLI
+    root.shops.where(subdomain: 'foo')...
 
-Yes, this client sports a (beta, but) nice CLI interface that lets you perform stuff interactively. If you installed the package locally, run `bin/cli.js` and voilá!
+### [Collection].sort(cb)
+
+// TODO
+
+### [Collection].all(cb)
+
+--> Returns the full set of items for a Collection.
+
+    root.shops.all(function(shops) {
+      console.log(shops) // [Collection]
+    })
+
+### [Collection].first(cb) 
+
+--> Returns the first item of a collection.
+
+### [Collection].last(cb) 
+
+--> Returns the last item of a collection.
+
+### [Collection].each(cb)
+
+--> Iterates over each of a collection's items. 
+
+    root.shops.forEach(function(shop) {
+      console.log(shop) // [Entity]
+    })
 
 ## Examples
+-----------------------------
 
-Check the `examples` directory contained in this repository. 
+Check the `examples` directory contained in this repository.
 
 ## Contributing
 
-Report bugs at first sight! This is my first dive into the [Proxy object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) so your ride might get bumpy.
-
-Please note that the interface might change in the future, so make sure to write tests (and run them) when you upgrade to a new major version (X.0.0).
+Just with silence for the time being. This is kind of experimental stuff so until the interface stabilizes a bit I won't accept any patches.
 
 ## Copyright
 
 (c) Tomas Pollak, Inventario SpA. Licensed under the Mozilla Public License (MPL).
+
