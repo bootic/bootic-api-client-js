@@ -1,6 +1,6 @@
 # Bootic JS API Client
 
-Client for the [Bootic API](developers.bootic.net), written in pure Javascript, like real men do.
+Client for the [Bootic API](https://api.bootic.net), written in pure Javascript, like real men do.
 
 # Usage
 
@@ -41,7 +41,17 @@ bootic
     })
 ```
 
-# API
+## Install
+
+    npm install -g bootic (or yarn add)
+
+## Using the client
+
+Starting from the root Element (initialized using the response from the API's `rootUrl`), an Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
+
+This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`).
+
+## Authentication
 
 `.auth(strategy, opts)`
 
@@ -55,66 +65,7 @@ Options:
  - `rootUrl`: To use an alternate endpoint for the API root.
  - `strategy`: Yes, you can also pass it as an option.
 
-# Install
-
-    npm install -g bootic (or yarn add)
-
-# Using the client
-
-Starting from the root Element (initialized using the response from the API's `rootUrl`), an Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
-
-This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`). 
-
-## `Entity`
------------------------------
-
-### [Entity].get
-
---> Retrieves an entity's attributes and related links and embedded items.
-
-    root.account.get(function(account) {
-      console.log(account); // 
-    })
-
-
-## `Collection`
-
-### [Collection].where(query)
-
---> Requests a link with params. Returns Collection. 
-
-    root.shops.where(subdomain: 'foo')...
-
-### [Collection].sort(cb)
-
-// TODO
-
-### [Collection].all(cb)
-
---> Returns the full set of items for a Collection.
-
-    root.shops.all(function(shops) {
-      console.log(shops) // [Collection]
-    })
-
-### [Collection].first(cb) 
-
---> Returns the first item of a collection.
-
-### [Collection].last(cb) 
-
---> Returns the last item of a collection.
-
-### [Collection].each(cb)
-
---> Iterates over each of a collection's items. 
-
-    root.shops.forEach(function(shop) {
-      console.log(shop) // [Entity]
-    })
-
 ## Examples
------------------------------
 
 Check the `examples` directory contained in this repository.
 
@@ -125,4 +76,3 @@ Just with silence for the time being. This is kind of experimental stuff so unti
 ## Copyright
 
 (c) Tomas Pollak, Inventario SpA. Licensed under the Mozilla Public License (MPL).
-
