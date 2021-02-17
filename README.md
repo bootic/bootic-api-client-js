@@ -1,8 +1,12 @@
 # Bootic JS API Client
 
-Modern client for the [Bootic API](https://api.bootic.net), written in pure vanilla Javascript.
+Modern client for the [Bootic API](https://api.bootic.net), written in pure vanilla Javascript. 
 
 # Usage
+
+Works both in the browser and Node.js (via node-fetch-polyfill).
+
+The following example prints the data for the last order available in a specific shop.
 
 ``` js
 const bootic = require('bootic')
@@ -64,6 +68,8 @@ Options:
  - `clientSecret`: Same as above.
  - `rootUrl`: To use an alternate endpoint for the API root.
  - `strategy`: Yes, you can also pass it as an option.
+
+For a detailed description about the supported OAuth2 strategies, please check the [Authentication section](https://api.bootic.net/api/authentication/) from our API documentation.
 
 ## Examples
 
