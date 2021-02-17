@@ -1,6 +1,6 @@
 # Bootic JS API Client
 
-Client for the [Bootic API](https://api.bootic.net), written in pure Javascript, like real men do.
+Modern client for the [Bootic API](https://api.bootic.net), written in pure vanilla Javascript.
 
 # Usage
 
