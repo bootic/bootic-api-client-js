@@ -67,6 +67,8 @@ Options:
  - `rootUrl`: To use an alternate endpoint for the API root.
  - `strategy`: Yes, you can also pass it as an option.
 
+To generate a temporary `accessToken`, or to get a your `clientId` and `clientSecret` you need to enable the developer sandbox or register your application in [https://auth.bootic.net](auth.bootic.net).
+
 For a detailed description about the supported OAuth2 strategies, please check the [Authentication section](https://api.bootic.net/api/authentication/) from our API documentation.
 
 ## Examples
@@ -75,7 +77,9 @@ Check the `examples` directory contained in this repository.
 
 ## Contributing
 
-Just with silence for the time being. This is kind of experimental stuff so until the interface stabilizes a bit I won't accept any patches.
+Report bugs at first sight! This is my first dive into the [Proxy object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) so your ride might get bumpy.
+
+Please note that the interface might change in the future, so make sure to write tests (and run them) when you upgrade to a new major version (X.0.0).
 
 ## Copyright
 
