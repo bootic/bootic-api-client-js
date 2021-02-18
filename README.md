@@ -1,12 +1,10 @@
 # Bootic JS API Client
 
-Modern client for the [Bootic API](https://api.bootic.net), written in pure vanilla Javascript. 
+Pure Javascript, modern client for the [Bootic API](https://api.bootic.net), for Node.js and the browser.
 
 # Usage
 
-Works both in the browser and Node.js (via node-fetch-polyfill).
-
-The following example prints the data for the last order available in a specific shop.
+The following example prints the data for the last order placed in the first shop (accessible for your auth token's scope).
 
 ``` js
 const bootic = require('bootic')
