@@ -49,7 +49,7 @@ bootic
 
 ## Authentication
 
-In order to access the API your need to create an application or enable the developer sandbox at [https://auth.bootic.net](auth.bootic.net). 
+In order to access the API your need to create an application or enable the developer sandbox at [auth.bootic.net](https://auth.bootic.net). 
 
 Once you've done so, you initialize the client by calling:
 
@@ -65,8 +65,8 @@ Or simply (if using the credentials strategy):
 
 The available options are:
 
- - `accessToken`: Required for `bearer` and `authorized` strategies. You can generate temporary tokens by enabling the [https://auth.bootic.net/dev/sandbox](developer sandbox).
- - `clientId`: For `credentials` and `authorized` strategies. You need to [https://auth.bootic.net/dev/apps](create a Bootic OAuth2 app) to get this.
+ - `accessToken`: Required for `bearer` and `authorized` strategies. You can generate temporary tokens by enabling the [developer sandbox](https://auth.bootic.net/dev/sandbox).
+ - `clientId`: For `credentials` and `authorized` strategies. You need to [create a Bootic OAuth2 app](https://auth.bootic.net/dev/apps) to get this.
  - `clientSecret`: Same as above.
  - `rootUrl`: To use an alternate endpoint for the API root. You probably won't use this.
  - `strategy`: Yes, you can also pass it as an option. Not required.
@@ -81,17 +81,19 @@ Once authorized, you start from the root Element (initialized using the response
 bootic
   .auth('bearer', { accessToken: 'aabbcc...xxyyzz' })
   .then(function(root) {
-    // root cointains the root entry points and embedded data
+    // root contains the API's entry points and embedded data for your account and token
     console.log(root.account.status)
     root.products.find(1234).then(function(product) {  
       // product contains the product's data and available/related actions
-      // in this case we'll call the .update action that will internally perform a PATCH request
-      product.update(online_stock: 10)
+      // in this case we'll call the `update` action that will internally perform a PATCH request
+      product.update(online_stock: 10).then(function() { 
+        // yay!
+      })
     })
   })
 ```
 
-An easy way to visualize the entry point and linked actions is by using our API's HAL browser at [https://api.bootic.net/browser/](api.bootic.net/browser/).
+An easy way to visualize the available actions and data for each endpoint under the Bootic API is by using our HAL browser at [api.bootic.net/browser/](https://api.bootic.net/browser/).
 
 ## Client entities (Element, Collection, etc)
 
@@ -101,7 +103,7 @@ This client supports chaining methods from Elements and Collections until a meth
 
 ## CLI
 
-Yes, this client sports a nice CLI interface that lets you perform stuff interactively. If you install the package globablly just run `bootic` and voilá!
+Yes, this client sports a (beta, but) nice CLI interface that lets you perform stuff interactively. If you installed the package locally, run `bin/cli.js` and voilá!
 
 ## Examples
 
