@@ -2,6 +2,8 @@
 
 Pure Javascript, modern client for the [Bootic API](https://api.bootic.net), for Node.js and the browser.
 
+Currently in beta.
+
 # Usage
 
 The following example prints the data for the last order placed in the first shop (accessible for your auth token's scope).
