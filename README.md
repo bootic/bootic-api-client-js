@@ -53,9 +53,9 @@ In order to access the API your need to create an application or enable the deve
 
 Once you've done so, you initialize the client by calling:
 
-`.auth(strategy, opts)`
+`.auth(strategy, options)`
 
-Initializes the client with the given options and `strategy` provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials. For example:
+Which initializes the client with the given `options` and `strategy` provided. `strategy` can be either `bearer`, `credentials` or `authorized`, or even skipped, in which case the strategy is deduced from the given credentials. For example:
 
 `.auth('bearer', { accessToken: 'aabbcc...xxyyzz' })`
 
@@ -63,7 +63,7 @@ Or simply (if using the credentials strategy):
 
 `.auth({ clientId: '123abc...', clientSecret: 'zxy321...' })`
 
-Options:
+The available options are:
 
  - `accessToken`: Required for `bearer` and `authorized` strategies. You can generate temporary tokens by enabling the [https://auth.bootic.net/dev/sandbox](developer sandbox).
  - `clientId`: For `credentials` and `authorized` strategies. You need to [https://auth.bootic.net/dev/apps](create a Bootic OAuth2 app) to get this.
@@ -75,11 +75,29 @@ For a detailed description about the supported OAuth2 strategies, please check t
 
 ## Using the client
 
-Starting from the root Element (initialized using the response from the API's `rootUrl`), an Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
+Once authorized, you start from the root Element (initialized using the response from the API's `rootUrl`), which contains the entry points for the different available APIs for your account, as well as embedded data (auth and account information, linked shops, etc). You can then access this data or endpoints as properties or methods for the promise's returned object. For instance:
+
+```
+bootic
+  .auth('bearer', { accessToken: 'aabbcc...xxyyzz' })
+  .then(function(root) {
+    // root cointains the root entry points and embedded data
+    console.log(root.account.status)
+    root.products.find(1234).then(function(product) {  
+      // product contains the product's data and available/related actions
+      // in this case we'll call the .update action that will internally perform a PATCH request
+      product.update(online_stock: 10)
+    })
+  })
+```
+
+An easy way to visualize the entry point and linked actions is by using our API's HAL browser at [https://api.bootic.net/browser/](api.bootic.net/browser/).
+
+## Client entities (Element, Collection, etc)
+
+An Element has `attributes` (strings, numbers, dates, etc), `links`, and `embedded` items (which can be either other `Elements` or `Collections` of Elements). Links can either return other `Elements` or `Collections`, as with `embedded` items, but they can also perform actions on the current `Element` in which case a success/error status is returned.
 
 This client supports chaining methods from Elements and Collections until a method is finally called. This means that both Elements and Collections can either be `Embedded` (its contents are known, since the data has already been received), `Linked` (unknown contents, linked from the current `Element`) or even `Virtual` (when the caller isn't Embedded but Virtual, e.g. `contact` in `shop.orders.first.contact`).
-
-You can also browse through the Bootic API endpoints by using the HAL browser in [https://api.bootic.net/browser/](api.bootic.net/browser/). 
 
 ## CLI
 
