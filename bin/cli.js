@@ -14,9 +14,9 @@ var replHistory  = require('repl.history'),
 if (args.h || args.help) {
   helpers.usage('cli.js')
 } else if (!args.token && !args.clientId) {
-  helpers.getConfig(args, function() { init(start_repl) })
+  helpers.getConfig(args, function() { init(startRepl) })
 } else {
-  init(start_repl)
+  init(startRepl)
 }
 
 process.on('unhandledRejection', function(reason, p) {
@@ -48,14 +48,21 @@ function init(cb) {
   })
 }
 
-function start_repl(vars) {
+function completer(sandbox) {
+  return function(line, cb) {
+    return cb();
+  }
+}
+
+function startRepl(vars) {
   var sandbox = vm.createContext(vars);
   console.log('Welcome! Available variables: ' + Object.keys(vars).join(', '))
 
   var replStart = repl(function(code) { return vm.runInContext(code, sandbox) })
   var server = replStart({
     prompt: 'bootic> ',
-    useColors: true
+    useColors: true,
+    completer: completer(sandbox)
   })
 
   replHistory(server, process.env['NODE_REPL_HISTORY'] || historyFile)
