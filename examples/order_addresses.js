@@ -3,9 +3,10 @@ var bootic   = require('../'),
     args     = helpers.args();
 
 var count = args._[0] || 20;
+var order_status =  = args._[1] || 'closed,shipped,delivered';
 
 if (!args.token && !args.clientId) {
-  helpers.usage('order_addresses.js', '[num_orders]');
+  helpers.usage('order_addresses.js', '[num_orders] [order_status]');
 }
 
 function listAddresses(addresses) {
@@ -26,7 +27,7 @@ bootic
   })
   .then(function(shop) {
     return shop.orders
-      .where({ status: 'closed,shipped,delivered' })
+      .where({ status: order_status })
       .limit(count)
       .desc() // get last x
       .all()
